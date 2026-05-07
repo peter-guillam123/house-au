@@ -86,11 +86,12 @@ function escapeRegex(s) {
 }
 
 export const SOURCE_CLASS = {
-  'Spoken': 'src-spoken',
-  'Written': 'src-written',
-  'Written Q': 'src-wq',
-  'Written Stmt': 'src-ws',
-  'Committee': 'src-cmte',
+  'Spoken':           'src-spoken',
+  'Q without notice': 'src-spoken',
+  'Q on notice':      'src-wq',
+  'Statement':        'src-ws',
+  'Committee':        'src-cmte',
+  'Estimates':        'src-cmte',
 };
 
 // Canonical UK party tones — shared by Search and Deep Dive so a party
