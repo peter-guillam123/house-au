@@ -10,4 +10,5 @@ __pycache__/
 # Harvester intermediate artefacts — regenerated on each run
 tools/hansard-ids.json
 tools/raw-fragments/
+tools/parsed-fragments/
 .venv/
