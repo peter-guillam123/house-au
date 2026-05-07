@@ -6,3 +6,8 @@ node_modules/
 worker/package-lock.json
 __pycache__/
 *.pyc
+
+# Harvester intermediate artefacts — regenerated on each run
+tools/hansard-ids.json
+tools/raw-xml/
+.venv/
