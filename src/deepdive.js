@@ -734,7 +734,7 @@ function renderHeadlines() {
         ${partyBit}
         ${houseBit}
       </p>
-      <h3 class="dd-hl-title"><a href="${escapeHtml(h.link)}" target="_blank" rel="noopener">${escapeHtml(h.title || '(untitled)')}</a></h3>
+      <h3 class="dd-hl-title"><a href="${escapeHtml(h.link)}" target="_blank" rel="noopener" title="${escapeHtml(h.title || '')}">${escapeHtml(h.title || '(untitled)')}</a></h3>
       <p class="dd-hl-snippet">${snippetHtml(h.snippet || h.fullText, state.term, 240)}</p>
     </li>`;
   }).join('') + (more > 0

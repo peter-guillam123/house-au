@@ -453,7 +453,7 @@ function renderResults() {
       : '';
     const houseBit = item.house ? `<span class="house-tag">${escapeHtml(item.house)}</span>` : '';
     li.innerHTML = `
-      <h2 class="result-title"><a href="${escapeHtml(item.link)}" target="_blank" rel="noopener">${escapeHtml(item.title || '(untitled)')}</a></h2>
+      <h2 class="result-title"><a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" title="${escapeHtml(item.title || '')}">${escapeHtml(item.title || '(untitled)')}</a></h2>
       <div class="result-meta">
         <span class="badge ${cls}">${escapeHtml(item.source)}</span>
         <span class="result-date">${escapeHtml(formatDate(item.date))}</span>
