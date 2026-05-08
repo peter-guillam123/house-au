@@ -5,7 +5,7 @@
 // each month is then fetched in parallel (concurrency 4) for the
 // individual contributions feeding the leaderboards and headline list.
 
-import { timelineStats, searchSpoken, memberById } from './api.js?v=9';
+import { timelineStats, searchSpoken, memberById } from './api.js?v=10';
 import { formatDate, snippetHtml, escapeHtml, partyColor, partyShortName, unquoteTerm } from './format.js?v=8';
 import { buildMarkdownExport, exportFilename, downloadMarkdown } from './export.js?v=1';
 

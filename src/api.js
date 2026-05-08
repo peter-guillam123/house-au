@@ -131,21 +131,26 @@ async function shardsForRange(startDate, endDate) {
   return out;
 }
 
-// Stream shards one at a time, calling visit(contribution) on each row
-// that hasn't already been seen (rolling + per-month overlap on the seam).
-// The visitor decides whether to keep, count or discard — the caller is
-// responsible for memory of anything it accumulates. This pattern means
-// only one shard's parsed JSON is held by the active call frame at a time;
-// the LRU cache holds at most SHARD_CACHE_MAX of them across calls.
+// Stream shards in small parallel batches, calling visit(contribution) on
+// each row that hasn't already been seen (rolling + per-month overlap on
+// the seam). The visitor decides whether to keep, count or discard — the
+// caller is responsible for memory of anything it accumulates. Batches of
+// SHARD_BATCH overlap network round-trips while keeping peak parsed
+// memory bounded; sequential iteration was correct but ~3x slower than
+// it needed to be on wide searches.
+const SHARD_BATCH = 4;
 async function streamContributions(opts, visit) {
   const specs = await shardsForRange(opts.startDate, opts.endDate);
   const seen = new Set();
-  for (const spec of specs) {
-    const arr = await loadShard(spec);
-    for (const c of arr) {
-      if (seen.has(c.id)) continue;
-      seen.add(c.id);
-      visit(c);
+  for (let i = 0; i < specs.length; i += SHARD_BATCH) {
+    const batch = specs.slice(i, i + SHARD_BATCH);
+    const shards = await Promise.all(batch.map(loadShard));
+    for (const arr of shards) {
+      for (const c of arr) {
+        if (seen.has(c.id)) continue;
+        seen.add(c.id);
+        visit(c);
+      }
     }
   }
 }

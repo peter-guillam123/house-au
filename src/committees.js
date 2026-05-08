@@ -10,7 +10,7 @@ import {
   searchOralEvidence,
   inquiryById,
   oralEvidenceTranscript,
-} from './api.js?v=11';
+} from './api.js?v=12';
 import { formatDate, escapeHtml, snippetHtml, buildSearchRegex } from './format.js?v=8';
 
 // ---------- state ----------
