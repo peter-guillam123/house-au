@@ -1,0 +1,77 @@
+{
+  "as_of": "2026-05-08",
+  "rounds": [
+    {
+      "id": "additional-2025-26",
+      "url": "estimates-additional-2025-26.json",
+      "label": "2026 Additional Budget Estimates",
+      "from": "2026-02-09",
+      "to": "2026-03-10",
+      "sessions": 16,
+      "committees": [
+        "ca",
+        "ec",
+        "economics",
+        "ee",
+        "fadt",
+        "fpa",
+        "legcon",
+        "rrat"
+      ],
+      "section_count": 140
+    },
+    {
+      "id": "supplementary-2025-26",
+      "url": "estimates-supplementary-2025-26.json",
+      "label": "October and December\u00a02025-2026 Supplementary Budget Estimates",
+      "from": "2025-10-07",
+      "to": "2025-12-04",
+      "sessions": 32,
+      "committees": [
+        "ca",
+        "ec",
+        "economics",
+        "ee",
+        "fadt",
+        "fpa",
+        "legcon",
+        "rrat"
+      ],
+      "section_count": 243
+    },
+    {
+      "id": "budget-2025-26",
+      "url": "estimates-budget-2025-26.json",
+      "label": "March 2025-2026 Budget Estimates",
+      "from": "2025-03-27",
+      "to": "2025-03-27",
+      "sessions": 4,
+      "committees": [
+        "ec",
+        "fpa",
+        "legcon",
+        "rrat"
+      ],
+      "section_count": 36
+    },
+    {
+      "id": "additional-2024-25",
+      "url": "estimates-additional-2024-25.json",
+      "label": "February 2024-2025 Additional\u00a0Budget Estimates",
+      "from": "2025-02-24",
+      "to": "2025-02-28",
+      "sessions": 18,
+      "committees": [
+        "ca",
+        "ec",
+        "economics",
+        "ee",
+        "fadt",
+        "fpa",
+        "legcon",
+        "rrat"
+      ],
+      "section_count": 136
+    }
+  ]
+}

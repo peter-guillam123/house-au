@@ -214,6 +214,28 @@ def deep_link(bid: str, sid: str) -> str:
     return f"{DEEP_LINK_BASE}?bid={bid}&sid={sid}"
 
 
+def disambiguate_round_id(rid: str, date: str) -> str:
+    """The synthesised label for the default tab loses the fiscal-year
+    suffix (just 'additional' instead of 'additional-2025-26'). Recover
+    the suffix from the session date — AU fiscal year is July to June,
+    so the round-month-to-FY mapping is unambiguous.
+
+      Feb-Apr        -> previous FY (already in progress)
+      May-Jul, Oct-Dec -> new FY (starting that July)
+    """
+    if rid not in {"additional", "supplementary", "budget"} or not date:
+        return rid
+    try:
+        d = dt.date.fromisoformat(date)
+    except ValueError:
+        return rid
+    if 2 <= d.month <= 4:
+        fy = f"{d.year - 1}-{str(d.year)[-2:]}"
+    else:
+        fy = f"{d.year}-{str(d.year + 1)[-2:]}"
+    return f"{rid}-{fy}"
+
+
 def section_kind(title: str) -> str:
     """Heuristic: ALL-CAPS section titles ("PARLIAMENTARY DEPARTMENTS")
     are portfolio/header openers between department blocks. Mixed-case
@@ -247,13 +269,15 @@ def parse_one_session_file(raw_path: Path) -> list[dict]:
         if not full_text:
             continue
 
+        date = raw.get("date") or parse_date(d.get("Date"))
+        round_id = disambiguate_round_id(raw.get("round_id", ""), date)
         rows.append({
             "id":              f"{bid}{sid}",
             "ref":             raw["ref"],
             "sid":             sid,
-            "date":            raw.get("date") or parse_date(d.get("Date")),
+            "date":            date,
             "round":           raw.get("round", ""),
-            "round_id":        raw.get("round_id", ""),
+            "round_id":        round_id,
             "committee":       raw.get("committee", ""),
             "committee_slug":  raw.get("committee_slug", ""),
             "section":         title,
