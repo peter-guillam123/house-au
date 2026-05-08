@@ -245,6 +245,35 @@ main {
   text-wrap: pretty;
 }
 
+/* "Last updated" stamp under the hero. Mono-caps eyebrow with a
+   leading dot, so a stale index is something you spot mid-glance. */
+.index-stamp {
+  margin: 1.1rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.index-stamp::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+.index-stamp:empty { display: none; }
+.index-stamp.is-stale {
+  color: var(--ink-muted);
+}
+.index-stamp.is-stale::before {
+  background: #c87a30;          /* muted amber — alert without shouting */
+  opacity: 1;
+}
+
 /* ================================================================
    Search field — generous, single-line, oxblood focus
    ================================================================ */

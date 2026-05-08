@@ -94,38 +94,63 @@ export const SOURCE_CLASS = {
   'Estimates':        'src-cmte',
 };
 
-// Canonical UK party tones — shared by Search and Deep Dive so a party
-// looks the same wherever it appears.
+// Canonical party tones — shared by Search and Deep Dive so a party
+// looks the same wherever it appears. UK entries kept (House UK uses
+// the same module); AU entries added below. The accent green
+// (#00843d) is reserved for the wordmark, so AU's eucalypt-leaning
+// parties get distinct shades to keep them legible on cream.
 export const PARTY_COLORS = {
+  // UK
   'Lab':              '#d50000',
   'Labour':           '#d50000',
-  'Lab/Co-op':        '#a8285e',   // rose-magenta — clearly distinct from Lab red
+  'Lab/Co-op':        '#a8285e',
   'Con':              '#0063ba',
   'Conservative':     '#0063ba',
   'LD':               '#faa61a',
   'Lib Dem':          '#faa61a',
   'Liberal Democrat': '#faa61a',
-  'SNP':              '#e6b800',   // saturated gold — readable on cream paper
+  'SNP':              '#e6b800',
   'Reform':           '#12b6cf',
   'Reform UK':        '#12b6cf',
   'Green':            '#6ab023',
   'Green Party':      '#6ab023',
   'DUP':              '#d46a4c',
-  'PC':               '#005a3c',   // Plaid Cymru
+  'PC':               '#005a3c',
   'Plaid Cymru':      '#005a3c',
   'SF':               '#326760',
   'Sinn Féin':        '#326760',
   'SDLP':             '#99cc66',
   'Alliance':         '#f6cb2f',
   'UUP':              '#48a5b8',
-  'Ind':              '#7e6f5b',   // dark warm grey-brown
-  'Independent':      '#7e6f5b',
-  'Crossbench':       '#b78c5e',   // tan
+  'Crossbench':       '#b78c5e',
   'CB':               '#b78c5e',
-  'Non-affiliated':   '#544c42',   // cool dark grey
+  'Non-affiliated':   '#544c42',
   'Non-Afl':          '#544c42',
   'Bishops':          '#574779',
   'Speaker':          '#444',
+
+  // AU
+  'Australian Labor Party':                '#d50000',
+  'Liberal Party of Australia':            '#1f5ba8',
+  'Liberal National Party of Queensland':  '#0e3f6b',
+  'The Nationals':                         '#4a6e2a',   // olive — distinct from --accent
+  'National Party of Australia':           '#4a6e2a',
+  'Country Liberal Party':                 '#9b3225',
+  'Australian Greens':                     '#80b042',   // distinct from --accent green
+  'The Greens':                            '#80b042',
+  "Pauline Hanson's One Nation":           '#e45f1a',
+  'One Nation':                            '#e45f1a',
+  'Centre Alliance':                       '#5fa3b5',
+  'Jacqui Lambie Network':                 '#c8a02e',
+  'United Australia Party':                '#fbb800',
+  'Liberal Democratic Party':              '#5b3a8a',
+  'Gerard Rennick People First':           '#7a3a2b',
+  "Australia's Voice":                     '#3a8a8a',
+  "Katter's Australian Party":             '#cc5400',
+
+  // Shared
+  'Ind':              '#7e6f5b',
+  'Independent':      '#7e6f5b',
   'Unknown':          '#c9bfac',
 };
 const PARTY_FALLBACK = '#a89b80';
@@ -140,6 +165,7 @@ export function partyColor(p) {
 // underlying key stays as Hansard returned it so filter URL state and
 // click-to-filter matching keep working.
 const PARTY_DISPLAY = {
+  // UK
   'Liberal Democrat': 'LD',
   'Liberal Democrats': 'LD',
   'Lib Dem': 'LD',
@@ -151,7 +177,6 @@ const PARTY_DISPLAY = {
   'Plaid Cymru': 'PC',
   'Sinn Féin': 'SF',
   'SF (Sinn Féin)': 'SF',
-  'Independent': 'Ind',
   'Crossbench': 'CB',
   'Non-affiliated': 'Non-Afl',
   'Co-op': 'Lab/Co-op',
@@ -159,6 +184,26 @@ const PARTY_DISPLAY = {
   'Bishop': 'Bishops',
   'Lord Bishop': 'Bishops',
   'APNI': 'Alliance',
+
+  // AU — long-form party names from aph.gov.au profile pages →
+  // editorial short labels for the result-row chip
+  'Australian Labor Party':                'Labor',
+  'Liberal Party of Australia':            'Liberal',
+  'Liberal National Party of Queensland':  'LNP',
+  'The Nationals':                         'Nationals',
+  'National Party of Australia':           'Nationals',
+  'Country Liberal Party':                 'CLP',
+  'Australian Greens':                     'Greens',
+  'The Greens':                            'Greens',
+  "Pauline Hanson's One Nation":           'One Nation',
+  'United Australia Party':                'UAP',
+  'Jacqui Lambie Network':                 'JLN',
+  'Liberal Democratic Party':              'LDP',
+  'Gerard Rennick People First':           'PF',
+  "Katter's Australian Party":             'KAP',
+
+  // Shared
+  'Independent': 'Ind',
 };
 export function partyShortName(p) {
   if (!p) return '';

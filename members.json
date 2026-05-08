@@ -1,0 +1,1625 @@
+{
+  "as_of": "2026-05-08",
+  "members": {
+    "00AKI": {
+      "name": "Hon Peter Dutton",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "00AMR": {
+      "name": "Hon Catherine King MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "00AMN": {
+      "name": "Hon Sussan Ley MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "008K0": {
+      "name": "Hon Anthony Byrne",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "008CH": {
+      "name": "Ms Zoe Daniel MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "00AMT": {
+      "name": "Ms Maria Vamvakinou",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "00AMV": {
+      "name": "Hon Greg Hunt",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "00APG": {
+      "name": "Hon Tony Smith",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "00AOL": {
+      "name": "Senator the Hon Richard Colbeck",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "00AOU": {
+      "name": "Senator the Hon Penny Wong",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "00AN3": {
+      "name": "Hon Brendan O'Connor",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "109556": {
+      "name": "Mr Julian Leeser MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "101351": {
+      "name": "Hon Peter Khalil MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "121628": {
+      "name": "Senator the Hon Jenny McAllister",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "11788": {
+      "name": "Ms Mary Aldred MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "102376": {
+      "name": "Hon Madeleine King MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "00ATG": {
+      "name": "Hon Bill Shorten",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "124514": {
+      "name": "Ms Zoe McKenzie MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "123072": {
+      "name": "Senator Susan McDonald",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "Senate"
+    },
+    "122087": {
+      "name": "Senator the Hon Malarndirri McCarthy",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "112096": {
+      "name": "Senator the Hon Sue Lines",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "125865": {
+      "name": "Hon Dr John McVeigh",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "138932": {
+      "name": "Mr Ted O'Brien MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "139441": {
+      "name": "Mr Ken O'Dowd",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "133646": {
+      "name": "Ms Peta Murphy",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "129164": {
+      "name": "Mr Brian Mitchell",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "13050": {
+      "name": "Hon Dr Anne Aly MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "132880": {
+      "name": "Hon Dr Daniel Mulino MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "144138": {
+      "name": "Senator James Paterson",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "144732": {
+      "name": "Ms Alicia Payne MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "140590": {
+      "name": "Hon Clare O'Neil MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "148150": {
+      "name": "Hon Keith Pitt",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "140651": {
+      "name": "Senator Deborah O'Neill",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "144292": {
+      "name": "Former Senator Rex Patrick",
+      "party": "Independent",
+      "chamber": "Senate"
+    },
+    "155410": {
+      "name": "Former Senator Janet Rice",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "147140": {
+      "name": "Mrs Fiona Phillips MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "159771": {
+      "name": "Hon Michelle Rowland MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "168275": {
+      "name": "Senator Tony Sheldon",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "157125": {
+      "name": "Ms Tracey Roberts MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "16913": {
+      "name": "Senator the Hon Tim Ayres",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "181810": {
+      "name": "Ms Susan Templeman MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "176304": {
+      "name": "Mr James Stevens",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "175696": {
+      "name": "Ms Zali Steggall OAM, MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "169119": {
+      "name": "Senator David Shoebridge",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "188315": {
+      "name": "Mr Bert van Manen MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "192970": {
+      "name": "Senator Larissa Waters",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "182468": {
+      "name": "Hon Matt Thistlethwaite MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "193430": {
+      "name": "Hon Tim Watts MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "195565": {
+      "name": "Senator Peter Whish-Wilson",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "203092": {
+      "name": "Mr Trent Zimmerman",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "198084": {
+      "name": "Mr Rick Wilson MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "204953": {
+      "name": "Former Senator Alex Gallacher",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "201906": {
+      "name": "Mr Terry Young MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "207825": {
+      "name": "Senator the Hon Bridget McKenzie",
+      "party": "The Nationals",
+      "chamber": "Senate"
+    },
+    "208884": {
+      "name": "Hon Christian Porter",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "219646": {
+      "name": "Hon Michael McCormack MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "224102": {
+      "name": "Hon Rebecca White MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "210911": {
+      "name": "Hon Dan Tehan MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "217241": {
+      "name": "Senator the Hon James McGrath",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "Senate"
+    },
+    "218019": {
+      "name": "Hon Kevin Hogan MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "230531": {
+      "name": "Hon Scott Buchholz MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "230485": {
+      "name": "Mr George Christensen",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "231027": {
+      "name": "Hon Angus Taylor MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "230886": {
+      "name": "Hon Karen Andrews",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "235654": {
+      "name": "Mr Keith Wolahan",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "231199": {
+      "name": "Ms Anne Urquhart MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "23497": {
+      "name": "Ms Carol Berry MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "237920": {
+      "name": "Former Senator the Hon Amanda Stoker",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "Senate"
+    },
+    "241067": {
+      "name": "Hon David Coleman",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "240756": {
+      "name": "Mr Tony Pasin MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "242515": {
+      "name": "Hon Michael Sukkar",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "241590": {
+      "name": "Mrs Lucy Wicks",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "243273": {
+      "name": "Senator the Hon Anne Ruston",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "241710": {
+      "name": "Senator Dean Smith",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "245392": {
+      "name": "Mr Luke Gosling OAM, MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "245550": {
+      "name": "Ms Nicolle Flint",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "245212": {
+      "name": "Senator the Hon Matthew Canavan",
+      "party": "The Nationals",
+      "chamber": "Senate"
+    },
+    "243609": {
+      "name": "Hon Andrew Giles MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "245759": {
+      "name": "Senator the Hon Murray Watt",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "247742": {
+      "name": "Hon Luke Howarth",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "247512": {
+      "name": "Former Senator Kimberley Kitching",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "248006": {
+      "name": "Ms Terri Butler",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "248181": {
+      "name": "Ms Sharon Claydon MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "248895": {
+      "name": "Ms Alison Penfold MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "249127": {
+      "name": "Hon Pat Conroy MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "249147": {
+      "name": "Hon Matt Keogh MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "248353": {
+      "name": "Hon Emma McBride MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "249224": {
+      "name": "Ms Joanne Ryan MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "249764": {
+      "name": "Hon Michelle Landry MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "250156": {
+      "name": "Senator Jordon Steele-John",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "250026": {
+      "name": "Senator Jacqui Lambie",
+      "party": "Jacqui Lambie Network",
+      "chamber": "Senate"
+    },
+    "249308": {
+      "name": "Hon Melissa Price MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "249710": {
+      "name": "Ms Lisa Chesters MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "257613": {
+      "name": "Senator Varun Ghosh",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "256136": {
+      "name": "Senator David Pocock",
+      "party": "Independent",
+      "chamber": "Senate"
+    },
+    "252157": {
+      "name": "Senator the Hon Jess Walsh",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "250362": {
+      "name": "Senator Mehreen Faruqi",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "250216": {
+      "name": "Former Senator the Hon Linda Reynolds CSC",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "256063": {
+      "name": "Senator Andrew Bragg",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "260805": {
+      "name": "Hon Andrew Hastie MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "259819": {
+      "name": "Senator the Hon Nita Green",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "263528": {
+      "name": "Senator Jacinta Nampijinpa Price",
+      "party": "Country Liberal Party",
+      "chamber": "Senate"
+    },
+    "263418": {
+      "name": "Senator the Hon Jonathon Duniam",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "264121": {
+      "name": "Hon Anika Wells MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "261393": {
+      "name": "Hon Andrew Gee MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "263427": {
+      "name": "Ms Jo Briskey MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "263547": {
+      "name": "Ms Libby Coker MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "264170": {
+      "name": "Ms Meryl Swanson MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "264449": {
+      "name": "Senator Claire Chandler",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "26417": {
+      "name": "Ms Nicolette Boele MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "265931": {
+      "name": "Hon Ben Morton",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "265970": {
+      "name": "Hon Josh Wilson MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "265967": {
+      "name": "Mr Andrew Wallace MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "265979": {
+      "name": "Dr Mike Freelander MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "265980": {
+      "name": "Ms Rebekha Sharkie MP",
+      "party": "Centre Alliance",
+      "chamber": "House of Representatives"
+    },
+    "265585": {
+      "name": "Hon David Littleproud MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "266499": {
+      "name": "Senator the Hon Jane Hume",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "265991": {
+      "name": "Mr Llew O'Brien MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "266524": {
+      "name": "Senator Malcolm Roberts",
+      "party": "One Nation",
+      "chamber": "Senate"
+    },
+    "269375": {
+      "name": "Senator Alex Antic",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "265990": {
+      "name": "Ms Anne Stanley MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "267506": {
+      "name": "Mr Simon Kennedy MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "273828": {
+      "name": "Former Senator Hollie Hughes",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "274506": {
+      "name": "Senator Dave Sharma",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "276714": {
+      "name": "Mr David Smith MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "270198": {
+      "name": "Ms Ali France MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "277110": {
+      "name": "Senator Corinne Mulholland",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "278522": {
+      "name": "Mr Josh Burns MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "279991": {
+      "name": "Mr Pat Conaghan MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "281603": {
+      "name": "Senator Marielle Smith",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "281558": {
+      "name": "Senator Wendy Askew",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "280304": {
+      "name": "Senator Lidia Thorpe",
+      "party": "Independent",
+      "chamber": "Senate"
+    },
+    "281503": {
+      "name": "Senator Raff Ciccone",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "281513": {
+      "name": "Mrs Melissa McIntosh MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "281826": {
+      "name": "Mr Phillip Thompson OAM, MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "281697": {
+      "name": "Former Senator Perin Davey",
+      "party": "The Nationals",
+      "chamber": "Senate"
+    },
+    "281988": {
+      "name": "Hon Kristy McBain MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "281688": {
+      "name": "Dr Anne Webster MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "282212": {
+      "name": "Hon Kate Thwaites MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "282237": {
+      "name": "Mrs Bridget Archer",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "282335": {
+      "name": "Dr Helen Haines MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "282306": {
+      "name": "Mr Gavin Pearce",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "282728": {
+      "name": "Former Senator Sam McMahon",
+      "party": "Liberal Democratic Party",
+      "chamber": "Senate"
+    },
+    "282981": {
+      "name": "Ms Angie Bell MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "282982": {
+      "name": "Dr Fiona Martin",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "282918": {
+      "name": "Ms Gladys Liu",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "282984": {
+      "name": "Mr Vince Connelly",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "282983": {
+      "name": "Mr Julian Simmonds",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "282986": {
+      "name": "Dr Katie Allen",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "283585": {
+      "name": "Senator Matt O'Sullivan",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "283596": {
+      "name": "Former Senator Gerard Rennick",
+      "party": "Gerard Rennick People First",
+      "chamber": "Senate"
+    },
+    "286042": {
+      "name": "Ms Allegra Spender MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "283601": {
+      "name": "Former Senator David Van",
+      "party": "Independent",
+      "chamber": "Senate"
+    },
+    "282997": {
+      "name": "Senator Paul Scarr",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "286349": {
+      "name": "Former Senator Greg Mirabella",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "286535": {
+      "name": "Mr Andrew Willcox MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "291387": {
+      "name": "Mr Garth Hamilton MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "288713": {
+      "name": "Mr Sam Birrell MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "287062": {
+      "name": "Senator Andrew McLachlan CSC",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "290544": {
+      "name": "Senator Michelle Ananda-Rajah",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "295588": {
+      "name": "Dr Carina Garland MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "296272": {
+      "name": "Ms Louise Miller-Frost MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "296215": {
+      "name": "Senator Dorinda Cox",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "295676": {
+      "name": "Ms Dai Le MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "297660": {
+      "name": "Dr Monique Ryan MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "297964": {
+      "name": "Senator Jessica Collins",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "291406": {
+      "name": "Mr Ben Small MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "296331": {
+      "name": "Senator Karen Grogan",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "298840": {
+      "name": "Mr Dan Repacholi MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "298574": {
+      "name": "Ms Madonna Jarrett MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "298121": {
+      "name": "Ms Sally Sitou MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "299145": {
+      "name": "Ms Alison Byrnes MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "298618": {
+      "name": "Mr Zhi Soon MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "298800": {
+      "name": "Ms Zaneta Mascarenhas MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "298839": {
+      "name": "Senator Penny Allman-Payne",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "299150": {
+      "name": "Ms Tania Lawrence MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "299174": {
+      "name": "Mr Jerome Laxale MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "299352": {
+      "name": "Senator Jana Stewart",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "299498": {
+      "name": "Mr Colin Boyce MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "299623": {
+      "name": "Dr Sophie Scamps MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "299962": {
+      "name": "Ms Mary Doyle MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "300006": {
+      "name": "Ms Kate Chaney MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "300121": {
+      "name": "Mr Max Chandler-Mather MP",
+      "party": "Australian Greens",
+      "chamber": "House of Representatives"
+    },
+    "299964": {
+      "name": "Ms Cassandra Fernando MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "300120": {
+      "name": "Mr Henry Pike MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "300123": {
+      "name": "Ms Jenny Ware",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "300122": {
+      "name": "Hon Sam Rae MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "300124": {
+      "name": "Ms Kylea Tink",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "300127": {
+      "name": "Ms Elizabeth Watson-Brown MP",
+      "party": "Australian Greens",
+      "chamber": "House of Representatives"
+    },
+    "300134": {
+      "name": "Senator Ross Cadell",
+      "party": "The Nationals",
+      "chamber": "Senate"
+    },
+    "300126": {
+      "name": "Dr Gordon Reid MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "300129": {
+      "name": "Mr Matt Burnell MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "300130": {
+      "name": "Mr Sam Lim MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "300246": {
+      "name": "Mr Stephen Bates",
+      "party": "Australian Greens",
+      "chamber": "House of Representatives"
+    },
+    "300147": {
+      "name": "Mr Aaron Violi MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "300639": {
+      "name": "Senator Tammy Tyrrell",
+      "party": "Independent",
+      "chamber": "Senate"
+    },
+    "300707": {
+      "name": "Senator Fatima Payman",
+      "party": "Australia's Voice",
+      "chamber": "Senate"
+    },
+    "300644": {
+      "name": "Senator Kerrynne Liddle",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "300706": {
+      "name": "Senator Ralph Babet",
+      "party": "United Australia Party",
+      "chamber": "Senate"
+    },
+    "301128": {
+      "name": "Senator Lisa Darmanin",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "309484": {
+      "name": "Ms Jodie Belyea MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "30484": {
+      "name": "Senator Slade Brockman",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "306168": {
+      "name": "Senator Maria Kovacic",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "310860": {
+      "name": "Senator Steph Hodgins-May",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "306489": {
+      "name": "Mr Cameron Caldwell MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "312323": {
+      "name": "Ms Renee Coffey MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "312823": {
+      "name": "Ms Julie-Ann Campbell MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "312393": {
+      "name": "Mr Matt Smith MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "314526": {
+      "name": "Ms Jess Teesdale MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "312871": {
+      "name": "Ms Trish Cook MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "315154": {
+      "name": "Mr Matt Gregg MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "315170": {
+      "name": "Senator Leah Blyth",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "315434": {
+      "name": "Mr Tom Venning MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "315618": {
+      "name": "Ms Ash Ambihaipahar MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "315478": {
+      "name": "Mr David Batt MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "316101": {
+      "name": "Ms Claire Clutterham MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316052": {
+      "name": "Mr Gabriel Ng MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316021": {
+      "name": "Ms Alice Jordan-Baird MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316312": {
+      "name": "Mr Jamie Chaffey MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "316540": {
+      "name": "Mr David Moncrieff MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316537": {
+      "name": "Ms Kara Cook MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316550": {
+      "name": "Mr Tom French MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316547": {
+      "name": "Mr Leon Rebello MP",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "316818": {
+      "name": "Senator Charlotte Walker",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "316555": {
+      "name": "Senator Ellie Whiteaker",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "316660": {
+      "name": "Ms Sarah Witty MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316551": {
+      "name": "Ms Emma Comer MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "316915": {
+      "name": "Mr Basem Abdo MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "317026": {
+      "name": "Senator Tyron Whitten",
+      "party": "One Nation",
+      "chamber": "Senate"
+    },
+    "316935": {
+      "name": "Senator Josh Dolega",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "317036": {
+      "name": "Former Senator Warwick Stacey",
+      "party": "Pauline Hanson's One Nation",
+      "chamber": "Senate"
+    },
+    "319142": {
+      "name": "Senator Sean Bell",
+      "party": "One Nation",
+      "chamber": "Senate"
+    },
+    "39801": {
+      "name": "Senator the Hon Anthony Chisholm",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "53517": {
+      "name": "Hon Milton Dick MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "37998": {
+      "name": "Hon Dr Jim Chalmers MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "53369": {
+      "name": "Former Senator Richard Di Natale",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "61378": {
+      "name": "Hon Trevor Evans",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "56430": {
+      "name": "Hon Damian Drum",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "55842": {
+      "name": "Senator Richard Dowling",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "72184": {
+      "name": "Hon Dr David Gillespie",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "74046": {
+      "name": "Mr Ian Goodenough",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "74519": {
+      "name": "Hon Patrick Gorman MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "76760": {
+      "name": "Former Senator Stirling Griff",
+      "party": "Centre Alliance",
+      "chamber": "Senate"
+    },
+    "7K6": {
+      "name": "Hon Warren Entsch",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "83M": {
+      "name": "Hon Tanya Plibersek MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "91219": {
+      "name": "Hon Ed Husic MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "88411": {
+      "name": "Mr Rowan Holzberger MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "86256": {
+      "name": "Hon Julian Hill MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "8K6": {
+      "name": "Hon Joel Fitzgibbon",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "A9B": {
+      "name": "Hon Stephen Jones",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "8GH": {
+      "name": "Hon Linda Burney",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "99931": {
+      "name": "Mr Craig Kelly",
+      "party": "United Australia Party",
+      "chamber": "House of Representatives"
+    },
+    "BFQ": {
+      "name": "Senator Barbara Pocock",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "80072": {
+      "name": "Ms Celia Hammond",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "BK6": {
+      "name": "Senator Pauline Hanson",
+      "party": "One Nation",
+      "chamber": "Senate"
+    },
+    "AW5": {
+      "name": "Former Senator the Hon Kim Carr",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "DZP": {
+      "name": "Hon Sharon Bird",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "DYU": {
+      "name": "Former Senator the Hon David Fawcett",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "BU8": {
+      "name": "Hon Dr Andrew Leigh MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "C2T": {
+      "name": "Mr Andrew Wilkie MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "DYW": {
+      "name": "Hon Tony Burke MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "DZY": {
+      "name": "Mr Steve Georganas MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "DZS": {
+      "name": "Hon Chris Bowen MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "E09": {
+      "name": "Ms Julie Owens",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "E5D": {
+      "name": "Hon Barnaby Joyce MP",
+      "party": "One Nation",
+      "chamber": "House of Representatives"
+    },
+    "DZW": {
+      "name": "Hon Justine Elliot MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "E0F": {
+      "name": "Hon Jason Wood MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "E0D": {
+      "name": "Mr Ross Vasta",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "E0H": {
+      "name": "Dr Andrew Laming",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "ECV": {
+      "name": "Mr Chris Hayes",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "E3L": {
+      "name": "Hon Scott Morrison AC",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "F2S": {
+      "name": "Ms Marion Scrymgour MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "FKL": {
+      "name": "Hon Josh Frydenberg",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "FAB": {
+      "name": "Former Senator Jim Molan AO DSC",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "F49": {
+      "name": "Senator the Hon Carol Brown",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "G86": {
+      "name": "Mr Jason Falinski",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "H6X": {
+      "name": "Former Senator the Hon Simon Birmingham",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "HK5": {
+      "name": "Hon Kevin Andrews AM",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "HDA": {
+      "name": "Former Senator the Hon Mathias Cormann",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "HW9": {
+      "name": "Mr Nick Champion",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HVO": {
+      "name": "Hon Shayne Neumann MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWB": {
+      "name": "Mr Tony Zappia MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HVP": {
+      "name": "Mr Graham Perrett",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HRI": {
+      "name": "Hon Dr Mike Kelly AM",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWA": {
+      "name": "Hon Amanda Rishworth MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWG": {
+      "name": "Hon Mark Dreyfus KC, MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWL": {
+      "name": "Hon Jason Clare MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWM": {
+      "name": "Hon Julie Collins MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWN": {
+      "name": "Hon Mark Coulton",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "HWS": {
+      "name": "Mr Rowan Ramsey",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "HWP": {
+      "name": "Hon Nola Marino",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "HWQ": {
+      "name": "Hon Richard Marles MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWT": {
+      "name": "Hon Stuart Robert",
+      "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "HX4": {
+      "name": "Hon Bob Katter MP",
+      "party": "Katter's Australian Party",
+      "chamber": "House of Representatives"
+    },
+    "HWK": {
+      "name": "Hon Mark Butler MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "HWO": {
+      "name": "Hon Alex Hawke MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "HYM": {
+      "name": "Hon Steve Irons",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "I0T": {
+      "name": "Former Senator Louise Pratt",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "I0U": {
+      "name": "Senator Sarah Hanson-Young",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "I0M": {
+      "name": "Senator the Hon Michaelia Cash",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "HZB": {
+      "name": "Former Senator Catryna Bilyk",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "I0N": {
+      "name": "Senator the Hon Don Farrell",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "HZE": {
+      "name": "Former Senator the Hon Zed Seselja",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "IMW": {
+      "name": "Hon Tim Wilson MP",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "ING": {
+      "name": "Senator the Hon Katy Gallagher",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "I8M": {
+      "name": "Hon Dr Andrew Charlton MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "IJ4": {
+      "name": "Hon Warren Snowdon",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "IPZ": {
+      "name": "Hon Darren Chester MP",
+      "party": "The Nationals",
+      "chamber": "House of Representatives"
+    },
+    "IWK": {
+      "name": "Former Senator Linda White",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "L6B": {
+      "name": "Hon Paul Fletcher",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "LNW": {
+      "name": "Former Senator the Hon Kristina Keneally",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "JKM": {
+      "name": "Senator Nick McKim",
+      "party": "Australian Greens",
+      "chamber": "Senate"
+    },
+    "M2Y": {
+      "name": "Hon Alan Tudge",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "LTU": {
+      "name": "Hon Ged Kearney MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "M3E": {
+      "name": "Mr Rob Mitchell MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "M56": {
+      "name": "Former Senator the Hon Marise Payne",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "M3M": {
+      "name": "Mr John Alexander OAM",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "M3C": {
+      "name": "Mr Adam Bandt",
+      "party": "Australian Greens",
+      "chamber": "House of Representatives"
+    },
+    "M3A": {
+      "name": "Hon Ken Wyatt AM",
+      "party": "Liberal Party of Australia",
+      "chamber": "House of Representatives"
+    },
+    "MT4": {
+      "name": "Mr Russell Broadbent MP",
+      "party": "Independent",
+      "chamber": "House of Representatives"
+    },
+    "N26": {
+      "name": "Former Senator the Hon Eric Abetz",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    },
+    "SR5": {
+      "name": "Former Senator Patrick Dodson",
+      "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "R36": {
+      "name": "Hon Anthony Albanese MP",
+      "party": "Australian Labor Party",
+      "chamber": "House of Representatives"
+    },
+    "ZN4": {
+      "name": "Senator the Hon Sarah Henderson",
+      "party": "Liberal Party of Australia",
+      "chamber": "Senate"
+    }
+  }
+}

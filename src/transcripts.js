@@ -7,7 +7,7 @@
 // snippets with prior-turn context and deep-link text fragments back
 // to the published transcript on committees.parliament.uk.
 
-import { formatDate, escapeHtml, snippetHtml, buildSearchRegex } from './format.js?v=7';
+import { formatDate, escapeHtml, snippetHtml, buildSearchRegex } from './format.js?v=8';
 
 const MANIFEST_URL         = './evidence-archives.json';
 const INITIAL_SNIPPETS     = 3;     // visible by default

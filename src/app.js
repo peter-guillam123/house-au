@@ -1,9 +1,9 @@
 import {
   searchSpoken, searchWrittenQuestions, searchWrittenStatements, searchCommitteeDebates,
-  memberById,
-} from './api.js?v=8';
-import { resolvePartyToMemberIds, getPartyList, memberAutocomplete } from './filters.js?v=6';
-import { formatDate, snippetHtml, escapeHtml, SOURCE_CLASS, partyColor, partyShortName } from './format.js?v=7';
+  memberById, getIndexDate,
+} from './api.js?v=9';
+import { resolvePartyToMemberIds, getPartyList, memberAutocomplete } from './filters.js?v=7';
+import { formatDate, snippetHtml, escapeHtml, SOURCE_CLASS, partyColor, partyShortName } from './format.js?v=8';
 import { buildMarkdownExport, exportFilename, downloadMarkdown } from './export.js?v=1';
 
 // ---------- state ----------
@@ -79,7 +79,9 @@ $house.addEventListener('click', (e) => {
 
 $party.addEventListener('change', () => {
   const opt = $party.selectedOptions[0];
-  state.party = opt && opt.value ? { id: Number(opt.value), name: opt.textContent } : null;
+  // AU party ids are the long-form party names (no numeric ids on
+  // aph.gov.au), so don't coerce — keep the value as a string.
+  state.party = opt && opt.value ? { id: opt.value, name: opt.textContent } : null;
 });
 
 memberAutocomplete($memberInput, (members) => {
@@ -195,7 +197,7 @@ async function applyParamsFromUrl() {
     const opt = Array.from($party.options).find(o => o.value === partyId);
     if (opt) {
       $party.value = partyId;
-      state.party = { id: Number(partyId), name: opt.textContent };
+      state.party = { id: partyId, name: opt.textContent };
     }
   }
 
@@ -261,6 +263,22 @@ $more.addEventListener('click', () => runSearch(false));
 // ---------- init: load parties, then apply URL state ----------
 
 (async () => {
+  // "Last updated" stamp — quiet trust signal so a stale build is
+  // visible at a glance.
+  try {
+    const $stamp = document.getElementById('index-stamp');
+    if ($stamp) {
+      const iso = await getIndexDate();
+      if (iso) {
+        $stamp.textContent = `Index updated ${formatDate(iso)}`;
+        // Add a "stale" class if it's older than 7 days — a soft alert
+        // styled muted-warm rather than red, so it doesn't shout.
+        const ageMs = Date.now() - new Date(iso).getTime();
+        if (ageMs > 7 * 24 * 3600 * 1000) $stamp.classList.add('is-stale');
+      }
+    }
+  } catch (e) { console.warn('index stamp failed', e); }
+
   try {
     const parties = await getPartyList();
     for (const { id, name } of parties) {

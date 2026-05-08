@@ -15,6 +15,7 @@ import { unquoteTerm, buildSearchRegex } from './format.js?v=4';
 export const PROXY = '';  // unused — kept for parity with House UK
 
 const MANIFEST_URL = './hansard-archives.json';
+const MEMBERS_URL  = './members.json';
 
 // ---------------- Manifest + shard loading ----------------
 
@@ -30,6 +31,46 @@ function getManifest() {
     });
   }
   return _manifestPromise;
+}
+
+// ---------------- Members directory ----------------
+//
+// members.json is a static MPID → { name, party, chamber } map produced
+// by tools/build_members.py. Loaded once, cached, then read synchronously
+// from toContribution() and the filter helpers. If the file's missing
+// (e.g., a pre-enrichment deploy), fall back to an empty map — the
+// pages still work, just without party chips and an empty party filter.
+
+let _members = null;        // synchronous-readable once warmed
+let _membersPromise = null;
+
+async function ensureMembers() {
+  if (_members) return _members;
+  if (!_membersPromise) {
+    _membersPromise = fetch(MEMBERS_URL).then(async (r) => {
+      if (!r.ok) return { members: {} };
+      return r.json();
+    }).catch(() => ({ members: {} }));
+  }
+  const d = await _membersPromise;
+  _members = d.members || {};
+  return _members;
+}
+
+function memberInfo(mpid) {
+  if (!mpid || !_members) return null;
+  return _members[mpid] || null;
+}
+
+// Public: a one-shot getter for the manifest's as_of date so the
+// frontend can render a "last updated" line. Returns ISO date or ''.
+export async function getIndexDate() {
+  try {
+    const m = await getManifest();
+    return m.as_of || '';
+  } catch {
+    return '';
+  }
 }
 
 const _shardCache = new Map();           // url -> Promise<Array>
@@ -121,6 +162,13 @@ function passesFilters(c, opts) {
     if (want && c.chamber !== want) return false;
   }
   if (opts.memberId != null && String(c.speakerId) !== String(opts.memberId)) return false;
+  // Party id is the long-form party name for AU (no numeric ids on
+  // aph.gov.au's parliamentarian profiles). The dropdown's option value
+  // is the same name string, so an exact-match check works.
+  if (opts.partyId != null && opts.partyId !== '') {
+    const m = memberInfo(c.speakerId);
+    if (!m || m.party !== opts.partyId) return false;
+  }
   return true;
 }
 
@@ -181,6 +229,7 @@ function toContribution(c) {
     ? `${c.speakerName} (${c.electorate})`
     : c.speakerName;
   const { eyebrow, title } = splitTitle(c.title || '');
+  const m = memberInfo(c.speakerId);
   return {
     eyebrow,
     source:       SOURCE_DISPLAY[c.source] || c.source,
@@ -190,7 +239,7 @@ function toContribution(c) {
     memberId:     c.speakerId || null,
     memberName,
     shortName:    c.shortName || c.speakerName || '',
-    party:        '',                      // not yet enriched
+    party:        (m && m.party) || '',
     title:        title || c.title || '',
     section:      c.context || eyebrow || '',
     debateExtId:  '',                      // AU links are direct, no ext-id needed
@@ -201,6 +250,7 @@ function toContribution(c) {
 }
 
 async function runSearch(sourceMatch, opts) {
+  await ensureMembers();           // warm party lookups for filter + display
   const matchTerm = termMatcher(opts.searchTerm);
   const hits = [];
   await streamContributions(opts, (c) => {
@@ -238,6 +288,7 @@ export async function searchWrittenStatements(opts) { return runSearch(SRC.ws,  
 // ---------------- Timeline stats (Deep Dive) ----------------
 
 export async function timelineStats(opts) {
+  await ensureMembers();
   const matchTerm = termMatcher(opts.searchTerm);
   const want = opts.contributionType === 'Written' ? SRC.written : SRC.spoken;
   const buckets = new Map();
@@ -304,11 +355,29 @@ export async function membersByName(name) {
   );
 }
 
-// Party-based filtering doesn't apply yet — AU contributions don't
-// carry party. Returning an empty list keeps the filter UI dormant
-// rather than crashing.
-export async function membersByPartyId(_partyId) { return []; }
-export async function listCurrentParties() { return []; }
+// Party data comes from members.json. We use the long-form party name
+// as the id (aph.gov.au profiles don't expose numeric ids).
+export async function listCurrentParties() {
+  const m = await ensureMembers();
+  const counts = new Map();
+  for (const v of Object.values(m)) {
+    if (!v.party) continue;
+    counts.set(v.party, (counts.get(v.party) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([name]) => ({ id: name, name }));
+}
+
+export async function membersByPartyId(partyId) {
+  if (!partyId) return [];
+  const m = await ensureMembers();
+  const out = [];
+  for (const [mpid, info] of Object.entries(m)) {
+    if (info.party === partyId) out.push(mpid);
+  }
+  return out;
+}
 
 // ---------------- Committees / inquiries / oral evidence ----------------
 //
