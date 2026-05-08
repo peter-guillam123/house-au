@@ -34,7 +34,11 @@ function getManifest() {
 
 const _shardCache = new Map();           // url -> Promise<Array>
 const _shardOrder = [];                  // LRU order of cached urls
-const SHARD_CACHE_MAX = 6;               // keep memory bounded on mobile
+// Conservative cap. Each shard parses to ~25-300MB of JS objects depending
+// on how dense the period was; with 6 in cache simultaneously we'd routinely
+// blow Chrome's per-tab budget on wide searches. Three is enough to keep
+// recent navigation cheap without holding the world.
+const SHARD_CACHE_MAX = 3;
 
 function _touchShard(url) {
   const i = _shardOrder.indexOf(url);
@@ -86,21 +90,23 @@ async function shardsForRange(startDate, endDate) {
   return out;
 }
 
-// Eagerly load all shards we need, dedupe by id (rolling + per-month
-// can overlap on the seam), return one flat array.
-async function gatherContributions(opts) {
+// Stream shards one at a time, calling visit(contribution) on each row
+// that hasn't already been seen (rolling + per-month overlap on the seam).
+// The visitor decides whether to keep, count or discard — the caller is
+// responsible for memory of anything it accumulates. This pattern means
+// only one shard's parsed JSON is held by the active call frame at a time;
+// the LRU cache holds at most SHARD_CACHE_MAX of them across calls.
+async function streamContributions(opts, visit) {
   const specs = await shardsForRange(opts.startDate, opts.endDate);
-  const all = await Promise.all(specs.map(loadShard));
   const seen = new Set();
-  const out = [];
-  for (const arr of all) {
+  for (const spec of specs) {
+    const arr = await loadShard(spec);
     for (const c of arr) {
       if (seen.has(c.id)) continue;
       seen.add(c.id);
-      out.push(c);
+      visit(c);
     }
   }
-  return out;
 }
 
 // ---------------- Filtering ----------------
@@ -195,15 +201,14 @@ function toContribution(c) {
 }
 
 async function runSearch(sourceMatch, opts) {
-  const all = await gatherContributions(opts);
   const matchTerm = termMatcher(opts.searchTerm);
   const hits = [];
-  for (const c of all) {
-    if (!sourceMatch(c.source)) continue;
-    if (!passesFilters(c, opts)) continue;
-    if (!matchTerm(c)) continue;
+  await streamContributions(opts, (c) => {
+    if (!sourceMatch(c.source)) return;
+    if (!passesFilters(c, opts)) return;
+    if (!matchTerm(c)) return;
     hits.push(c);
-  }
+  });
   hits.sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id.localeCompare(a.id));
   const skip = opts.skip ?? 0;
   const take = opts.take ?? 20;
@@ -233,20 +238,19 @@ export async function searchWrittenStatements(opts) { return runSearch(SRC.ws,  
 // ---------------- Timeline stats (Deep Dive) ----------------
 
 export async function timelineStats(opts) {
-  const all = await gatherContributions(opts);
   const matchTerm = termMatcher(opts.searchTerm);
   const want = opts.contributionType === 'Written' ? SRC.written : SRC.spoken;
   const buckets = new Map();
   let total = 0;
-  for (const c of all) {
-    if (!want(c.source)) continue;
-    if (!passesFilters(c, opts)) continue;
-    if (!matchTerm(c)) continue;
+  await streamContributions(opts, (c) => {
+    if (!want(c.source)) return;
+    if (!passesFilters(c, opts)) return;
+    if (!matchTerm(c)) return;
     const month = (c.date || '').slice(0, 7);
-    if (!month) continue;
+    if (!month) return;
     buckets.set(month, (buckets.get(month) || 0) + 1);
     total += 1;
-  }
+  });
   const out = [...buckets.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([month, count]) => ({ month, count }));
@@ -263,11 +267,10 @@ let _memberIndexPromise = null;
 async function getMemberIndex() {
   if (_memberIndexPromise) return _memberIndexPromise;
   _memberIndexPromise = (async () => {
-    const all = await gatherContributions({});  // load whatever's in cache; manifest covers all quarters
     const byId = new Map();
-    for (const c of all) {
+    await streamContributions({}, (c) => {
       const id = c.speakerId || '';
-      if (!id) continue;
+      if (!id) return;
       const existing = byId.get(id);
       if (!existing || (c.date > existing.lastSeen)) {
         byId.set(id, {
@@ -279,7 +282,7 @@ async function getMemberIndex() {
           lastSeen:    c.date || '',
         });
       }
-    }
+    });
     return byId;
   })();
   return _memberIndexPromise;

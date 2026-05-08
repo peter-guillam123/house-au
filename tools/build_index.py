@@ -106,7 +106,10 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--parsed", default="tools/parsed-fragments")
     ap.add_argument("--root", default=".",
                     help="Repo root where hansard-*.json shards land")
-    ap.add_argument("--rolling-days", type=int, default=90)
+    ap.add_argument("--rolling-days", type=int, default=60,
+                    help="Rolling shard depth in days. 60 keeps the file under "
+                         "the 50MB GH nudge for a busy sitting fortnight, while "
+                         "still covering ~3 sitting weeks of fresh material.")
     ap.add_argument("--live-days", type=int, default=730,
                     help="Quarters at or after (today - live_days) split per-month; "
                          "earlier quarters go into the gzipped archive")

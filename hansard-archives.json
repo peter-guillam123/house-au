@@ -2,9 +2,9 @@
   "as_of": "2026-05-08",
   "rolling": {
     "url": "hansard-rolling.json",
-    "from": "2026-02-07",
+    "from": "2026-03-09",
     "to": "2026-05-08",
-    "count": 9474
+    "count": 5779
   },
   "shards": [
     {
