@@ -113,10 +113,28 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--live-days", type=int, default=730,
                     help="Quarters at or after (today - live_days) split per-month; "
                          "earlier quarters go into the gzipped archive")
+    ap.add_argument("--min-parsed-days", type=int, default=100,
+                    help="Refuse to rebuild if fewer than this many parsed days "
+                         "are present. Belt-and-braces against a CI cache miss "
+                         "wiping the published shards. Pass --min-parsed-days=0 "
+                         "to disable the check (e.g. on a deliberate small build).")
     args = ap.parse_args(argv)
 
     parsed_root = Path(args.parsed)
     out_root = Path(args.root)
+
+    # Safety check: if the parsed-fragments cache is suspiciously small, do
+    # NOT proceed. clear_existing_shards() would otherwise wipe a healthy
+    # repo's shards in service of a half-empty rebuild — this is the exact
+    # failure mode of a first nightly run with no cache restored.
+    n_parsed = sum(1 for _ in parsed_root.rglob("*.json")) if parsed_root.exists() else 0
+    if args.min_parsed_days and n_parsed < args.min_parsed_days:
+        print(f"REFUSING to rebuild: only {n_parsed} parsed days under {parsed_root} "
+              f"(< {args.min_parsed_days}). The cache is likely empty. Run with a "
+              f"full --since to backfill before rebuilding, or pass "
+              f"--min-parsed-days=0 if you really mean a sparse build.",
+              file=sys.stderr)
+        return 2
 
     contribs = load_all_contributions(parsed_root)
     if not contribs:
