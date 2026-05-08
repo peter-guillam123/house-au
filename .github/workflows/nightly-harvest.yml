@@ -3,6 +3,16 @@ name: Nightly harvest
 # Runs at 18:00 UTC daily — early-morning Sydney, after the previous
 # day's Hansard has typically been published (~24h after sitting).
 # Also dispatch-able manually for backfills or re-bootstraps.
+#
+# BOOTSTRAP: the first run, or any run after the GHA cache evicts
+# (default 7 days), starts with an empty raw-fragments cache. The
+# nightly cron passes --since=14d so cache misses don't snowball into
+# 4-hour fetches — but that means partial parsed data, which
+# build_index correctly refuses to rebuild from (--min-parsed-days
+# guard). To bootstrap fresh: dispatch this workflow manually with
+# the `since` input set to `2020-01-01`. Plan for ~3 hours of polite
+# fetching. After the first successful run, cache stays warm as long
+# as a nightly hits within the 7-day eviction window.
 
 on:
   schedule:
@@ -28,7 +38,10 @@ concurrency:
 jobs:
   harvest:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # 350 min so a manual --since=2020-01-01 bootstrap fits inside
+    # GitHub's 6-hour hosted-runner ceiling. Daily incremental runs
+    # complete in a few minutes.
+    timeout-minutes: 350
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
