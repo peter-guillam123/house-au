@@ -1,13 +1,46 @@
 {
-  "as_of": "2026-05-07",
-  "rolling": null,
+  "as_of": "2026-05-08",
+  "rolling": {
+    "url": "hansard-rolling.json",
+    "from": "2026-02-07",
+    "to": "2026-05-08",
+    "count": 588
+  },
   "quarters": [
     {
       "id": "2020-Q1",
       "url": "hansard-2020-Q1.json",
       "from": "2020-01-01",
       "to": "2020-03-31",
-      "count": 182
+      "count": 6916
+    },
+    {
+      "id": "2020-Q2",
+      "url": "hansard-2020-Q2.json",
+      "from": "2020-04-01",
+      "to": "2020-06-30",
+      "count": 6308
+    },
+    {
+      "id": "2020-Q3",
+      "url": "hansard-2020-Q3.json",
+      "from": "2020-07-01",
+      "to": "2020-09-30",
+      "count": 4517
+    },
+    {
+      "id": "2020-Q4",
+      "url": "hansard-2020-Q4.json",
+      "from": "2020-10-01",
+      "to": "2020-12-31",
+      "count": 10734
+    },
+    {
+      "id": "2021-Q1",
+      "url": "hansard-2021-Q1.json",
+      "from": "2021-01-01",
+      "to": "2021-03-31",
+      "count": 5505
     }
   ]
 }
