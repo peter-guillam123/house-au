@@ -115,6 +115,17 @@ function describeFilters() {
 }
 
 // ---------- rendering ----------
+// AU Hansard renders portfolio openers in ALL CAPS — "TREASURY PORTFOLIO",
+// "FOREIGN AFFAIRS AND TRADE PORTFOLIO". Tonally heavy in a result list;
+// title-case for display while preserving the underlying data.
+function displaySection(row) {
+  const t = row.section || '';
+  if (row.section_kind === 'portfolio_header' || /^[A-Z][A-Z0-9 :&'/\-,()]+$/.test(t)) {
+    return t.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase());
+  }
+  return t;
+}
+
 function partyOrRoleChips(names, max) {
   if (!names || !names.length) return '';
   const shown = names.slice(0, max);
@@ -134,7 +145,7 @@ function renderHits(hits) {
       : escapeHtml(formatDate(row.date));
     li.innerHTML = `
       <p class="est-eyebrow">${eyebrow}</p>
-      <h2 class="est-section"><a href="${escapeHtml(row.link)}" target="_blank" rel="noopener" title="${escapeHtml(row.section || '')}">${escapeHtml(row.section || '(untitled)')}</a></h2>
+      <h2 class="est-section"><a href="${escapeHtml(row.link)}" target="_blank" rel="noopener" title="${escapeHtml(row.section || '')}">${escapeHtml(displaySection(row) || '(untitled)')}</a></h2>
       ${row.questioners?.length ? `<p class="est-roles"><span class="est-roles-label">Q&middot;</span> ${partyOrRoleChips(row.questioners, 5)}</p>` : ''}
       ${row.responders?.length ? `<p class="est-roles"><span class="est-roles-label">A&middot;</span> ${partyOrRoleChips(row.responders, 5)}</p>` : ''}
       <p class="est-snippet">${snippetHtml(row.fullText, state.term, 360)}</p>
