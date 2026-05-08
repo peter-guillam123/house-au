@@ -153,6 +153,15 @@ a:hover { color: var(--accent); text-decoration-color: var(--accent); }
   font-variation-settings: 'opsz' 32;
   line-height: 1;
 }
+.wordmark-flag {
+  width: 26px;
+  height: 13px;
+  display: inline-block;
+  margin-left: -0.2rem;        /* tuck closer to the wordmark text */
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(20, 17, 13, 0.10);  /* hairline frame */
+  vertical-align: middle;
+}
 
 .topnav {
   display: flex;
@@ -955,6 +964,7 @@ footer {
   .topbar-inner { padding: 0.6rem 0; }
   .wordmark .mark svg { width: 20px; height: 20px; }
   .wordmark-text { font-size: 1.15rem; }
+  .wordmark-flag { width: 22px; height: 11px; }
 
   main { padding: 1.25rem 0 3rem; }
 
