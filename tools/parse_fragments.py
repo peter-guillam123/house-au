@@ -140,23 +140,52 @@ def extract_talk(talk_html: str) -> dict:
     return {"text": p.text, "fields": p.fields, "mpid": p.mpid}
 
 
-def short_name(speaker: str | None) -> str:
-    """'Burke, Tony MP' → 'Tony Burke'.
+_NAME_DROP_TOKENS = {
+    "MP", "SENATOR", "SEN", "SEN.",
+    "HON", "HON.", "THE",
+    "MR", "MRS", "MS", "MISS", "DR", "DR.", "PROF", "PROF.",
+}
 
-    Fall back to whatever we got if the format doesn't match — Senate
-    uses 'Cash, Michaelia, Senator', etc. We strip the trailing role
-    tag and flip last-comma-first."""
+# Hansard renders surnames as caps, so "BURKE", "McKENZIE", "O'CONNOR".
+# Lowercase any run of 3+ caps, keeping the first letter — preserves
+# the Mc/Mac/O' prefixes that already have correct mixed case.
+_SHOUTY_RUN = re.compile(r"[A-Z]{3,}")
+
+
+def _calm_shouty(t: str) -> str:
+    return _SHOUTY_RUN.sub(lambda m: m.group()[0] + m.group()[1:].lower(), t)
+
+
+def short_name(speaker: str | None) -> str:
+    """Normalise a Hansard speaker string into a friendly display name.
+
+    Two input shapes from AU:
+      "Burke, Tony MP"            → "Tony Burke"        (comma-separated)
+      "Cash, Sen Michaelia"       → "Michaelia Cash"
+      "Wong, Sen the Hon Penny"   → "Penny Wong"
+      "McKenzie, Sen Bridget"     → "Bridget McKenzie"
+      "Mr BURKE" / "Senator GALLAGHER"  → "Burke" / "Gallagher"
+      "Senator McKENZIE"          → "McKenzie"
+    """
     if not speaker:
         return ""
     s = speaker.strip().rstrip(",")
-    parts = [p.strip() for p in s.split(",")]
+    parts = [p.strip() for p in s.split(",") if p.strip()]
     if len(parts) >= 2:
-        last = parts[0]
-        first_and_role = parts[1].split()
-        # Drop trailing role tokens (MP, Senator)
-        first = " ".join(t for t in first_and_role if t.upper() not in {"MP", "SENATOR"})
+        last = _calm_shouty(parts[0])
+        first_tokens = parts[1].split()
+        first = " ".join(
+            _calm_shouty(t)
+            for t in first_tokens
+            if t.upper().rstrip(".") not in _NAME_DROP_TOKENS
+        )
         return f"{first} {last}".strip()
-    return s
+    tokens = [
+        _calm_shouty(t)
+        for t in s.split()
+        if t.upper().rstrip(".") not in _NAME_DROP_TOKENS
+    ]
+    return " ".join(tokens)
 
 
 def classify_source(main_title: str, context: str) -> str:
@@ -203,7 +232,12 @@ def parse_one_file(raw_path: Path) -> list[dict]:
             # No body — skip TOC-only sections. Keeps the index small.
             continue
 
-        speaker = d.get("Speaker") or ""
+        # Speaker: prefer the API's structured Speaker field. When that's
+        # null but the speech body links a parliamentarian via MPID, the
+        # body's HPS-MemberSpeech span (e.g. "Mr BURKE", "Senator
+        # GALLAGHER") is the right fallback — without it those rows show
+        # up as "(Electorate)" because we have only the electorate field.
+        speaker = d.get("Speaker") or talk["fields"].get("memberSpeech", "") or ""
         contributions.append({
             "id":          f"{bid}{sid}",
             "date":        parse_date(d.get("Date")),
