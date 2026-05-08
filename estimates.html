@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&family=Source+Serif+4:ital,opsz,wght@1,8..60,300..600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css?v=41">
+  <link rel="stylesheet" href="style.css?v=42">
 </head>
 <body>
   <header class="topbar">
@@ -42,24 +42,65 @@
   <main class="dd-main">
     <section class="hero">
       <h1 class="lede">Senate Estimates.</h1>
-      <p class="sub">Twice-yearly hearings where senators question departmental officials over budget allocations &mdash; the surface where most of the substantive accountability stories surface (robodebt and sports rorts both came up here first). Will filter by round (Budget / Supplementary / Additional), portfolio, department and witness. The shape that doesn&rsquo;t exist in House UK because there&rsquo;s no UK equivalent.</p>
+      <p class="sub">Twice-yearly hearings where senators question departmental officials over budget allocations &mdash; where most of the substantive accountability stories surface. Each result is a department&rsquo;s grilling for one day. Click a section to read the full transcript on aph.gov.au.</p>
+      <p class="index-stamp" id="index-stamp" aria-live="polite"></p>
     </section>
 
-    <p class="status">
-      Scaffold mode. The Estimates harvester comes after the chamber-Hansard
-      backfill completes and the committee transcripts pipeline lands. See
-      the <a href="about.html">About</a> page for what&rsquo;s next.
-    </p>
+    <form id="est-form" class="search" autocomplete="off">
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <circle cx="11" cy="11" r="6.5"/>
+          <path d="m20 20-4.2-4.2"/>
+        </svg>
+      </span>
+      <label class="search-field">
+        <span class="visually-hidden">Search term</span>
+        <input id="est-q" type="search" name="q" placeholder="A word or phrase&hellip;" autocomplete="off" autofocus>
+      </label>
+      <button type="submit" class="primary">
+        <span class="primary-label">Search</span>
+        <span class="primary-kbd" aria-hidden="true">↵</span>
+      </button>
+    </form>
+
+    <details class="filters-shell" open>
+      <summary class="filters-toggle">
+        <span class="ft-label">Filters</span>
+        <span class="ft-chev" aria-hidden="true">
+          <svg viewBox="0 0 12 8" width="12" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.5 6 6.5 11 1.5"/></svg>
+        </span>
+      </summary>
+      <section class="filters" aria-label="Filters">
+        <fieldset class="filter">
+          <legend>Round</legend>
+          <select id="est-round">
+            <option value="">All rounds</option>
+          </select>
+        </fieldset>
+        <fieldset class="filter">
+          <legend>Committee</legend>
+          <select id="est-committee">
+            <option value="">All committees</option>
+          </select>
+        </fieldset>
+      </section>
+    </details>
+
+    <p id="est-status" class="status" aria-live="polite"></p>
+    <ol id="est-results" class="est-results"></ol>
   </main>
 
   <footer>
     <div class="footer-inner">
       <p class="colophon">
         Drawn from <a href="https://www.aph.gov.au/Parliamentary_Business/Senate_estimates">Senate Estimates</a>
-        at the Parliament of Australia. Internal newsroom tool &mdash; scaffold mode.
+        at the Parliament of Australia. Each row is one department&rsquo;s grilling for
+        one date; click through to ParlInfo for the canonical transcript.
       </p>
       <p class="colophon-meta"><a href="./">Search</a> · <a href="deep-dive.html">Deep Dive</a> · <a href="about.html">About</a></p>
     </div>
   </footer>
+
+  <script type="module" src="src/estimates.js?v=1"></script>
 </body>
 </html>
