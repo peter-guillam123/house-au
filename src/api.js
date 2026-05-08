@@ -46,37 +46,51 @@ function _touchShard(url) {
   }
 }
 
-function loadShard(url) {
-  if (!_shardCache.has(url)) {
-    _shardCache.set(url, fetch(`./${url}`).then(async (r) => {
-      if (!r.ok) throw new Error(`shard ${url} ${r.status}`);
-      return r.json();
-    }));
+// Each shard spec is { url, from, to, count, compressed? }. Live shards
+// are per-month raw JSON; archive shards are per-quarter gzipped JSON
+// (decompressed via DecompressionStream — supported in every browser
+// that matters for an internal newsroom tool).
+async function _fetchShard(spec) {
+  const r = await fetch(`./${spec.url}`);
+  if (!r.ok) throw new Error(`shard ${spec.url} ${r.status}`);
+  if (spec.compressed) {
+    const ds = new DecompressionStream('gzip');
+    const text = await new Response(r.body.pipeThrough(ds)).text();
+    return JSON.parse(text);
   }
-  _touchShard(url);
-  return _shardCache.get(url);
+  return r.json();
+}
+
+function loadShard(spec) {
+  if (!_shardCache.has(spec.url)) {
+    _shardCache.set(spec.url, _fetchShard(spec));
+  }
+  _touchShard(spec.url);
+  return _shardCache.get(spec.url);
 }
 
 // Pick the shards whose date range overlaps [startDate, endDate].
-// Always include rolling if no explicit date range is given (so a
-// no-filter search shows the most recent material first).
+// Always include rolling if a manifest rolling entry exists.
 async function shardsForRange(startDate, endDate) {
   const m = await getManifest();
   const out = [];
-  if (m.rolling) out.push(m.rolling.url);
-  for (const q of (m.quarters || [])) {
-    if (startDate && q.to < startDate) continue;
-    if (endDate && q.from > endDate) continue;
-    out.push(q.url);
+  if (m.rolling) out.push(m.rolling);
+  // The build writes a unified `shards` array; older builds wrote
+  // `quarters`. Read whichever's there.
+  const list = m.shards || m.quarters || [];
+  for (const s of list) {
+    if (startDate && s.to < startDate) continue;
+    if (endDate && s.from > endDate) continue;
+    out.push(s);
   }
   return out;
 }
 
-// Eagerly load all shards we need, dedupe by id (rolling + quarter
+// Eagerly load all shards we need, dedupe by id (rolling + per-month
 // can overlap on the seam), return one flat array.
 async function gatherContributions(opts) {
-  const urls = await shardsForRange(opts.startDate, opts.endDate);
-  const all = await Promise.all(urls.map(loadShard));
+  const specs = await shardsForRange(opts.startDate, opts.endDate);
+  const all = await Promise.all(specs.map(loadShard));
   const seen = new Set();
   const out = [];
   for (const arr of all) {

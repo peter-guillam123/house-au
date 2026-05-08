@@ -6,83 +6,83 @@
     "to": "2026-05-08",
     "count": 588
   },
-  "quarters": [
+  "shards": [
     {
-      "id": "2020-Q1",
-      "url": "hansard-2020-Q1.json",
+      "url": "hansard-2020-Q1.json.gz",
       "from": "2020-01-01",
       "to": "2020-03-31",
-      "count": 6916
+      "count": 6916,
+      "compressed": true
     },
     {
-      "id": "2020-Q2",
-      "url": "hansard-2020-Q2.json",
+      "url": "hansard-2020-Q2.json.gz",
       "from": "2020-04-01",
       "to": "2020-06-30",
-      "count": 6308
+      "count": 6308,
+      "compressed": true
     },
     {
-      "id": "2020-Q3",
-      "url": "hansard-2020-Q3.json",
+      "url": "hansard-2020-Q3.json.gz",
       "from": "2020-07-01",
       "to": "2020-09-30",
-      "count": 4517
+      "count": 4517,
+      "compressed": true
     },
     {
-      "id": "2020-Q4",
-      "url": "hansard-2020-Q4.json",
+      "url": "hansard-2020-Q4.json.gz",
       "from": "2020-10-01",
       "to": "2020-12-31",
-      "count": 10734
+      "count": 10734,
+      "compressed": true
     },
     {
-      "id": "2021-Q1",
-      "url": "hansard-2021-Q1.json",
+      "url": "hansard-2021-Q1.json.gz",
       "from": "2021-01-01",
       "to": "2021-03-31",
-      "count": 9240
+      "count": 9240,
+      "compressed": true
     },
     {
-      "id": "2021-Q2",
-      "url": "hansard-2021-Q2.json",
+      "url": "hansard-2021-Q2.json.gz",
       "from": "2021-04-01",
       "to": "2021-06-30",
-      "count": 7670
+      "count": 7670,
+      "compressed": true
     },
     {
-      "id": "2021-Q3",
-      "url": "hansard-2021-Q3.json",
+      "url": "hansard-2021-Q3.json.gz",
       "from": "2021-07-01",
       "to": "2021-09-30",
-      "count": 6473
+      "count": 6473,
+      "compressed": true
     },
     {
-      "id": "2021-Q4",
-      "url": "hansard-2021-Q4.json",
+      "url": "hansard-2021-Q4.json.gz",
       "from": "2021-10-01",
       "to": "2021-12-31",
-      "count": 7924
+      "count": 7924,
+      "compressed": true
     },
     {
-      "id": "2022-Q1",
-      "url": "hansard-2022-Q1.json",
+      "url": "hansard-2022-Q1.json.gz",
       "from": "2022-01-01",
       "to": "2022-03-31",
-      "count": 4847
+      "count": 4847,
+      "compressed": true
     },
     {
-      "id": "2022-Q3",
-      "url": "hansard-2022-Q3.json",
+      "url": "hansard-2022-Q3.json.gz",
       "from": "2022-07-01",
       "to": "2022-09-30",
-      "count": 7008
+      "count": 7008,
+      "compressed": true
     },
     {
-      "id": "2022-Q4",
-      "url": "hansard-2022-Q4.json",
+      "url": "hansard-2022-Q4.json.gz",
       "from": "2022-10-01",
       "to": "2022-12-31",
-      "count": 1724
+      "count": 1724,
+      "compressed": true
     }
   ]
 }

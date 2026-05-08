@@ -1,7 +1,7 @@
 import {
   searchSpoken, searchWrittenQuestions, searchWrittenStatements, searchCommitteeDebates,
   memberById,
-} from './api.js?v=7';
+} from './api.js?v=8';
 import { resolvePartyToMemberIds, getPartyList, memberAutocomplete } from './filters.js?v=6';
 import { formatDate, snippetHtml, escapeHtml, SOURCE_CLASS, partyColor, partyShortName } from './format.js?v=7';
 import { buildMarkdownExport, exportFilename, downloadMarkdown } from './export.js?v=1';
