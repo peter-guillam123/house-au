@@ -126,11 +126,26 @@ const SOURCE_DISPLAY = {
 // The leading ALL-CAPS segment is parliament's section tag. Treating it
 // as the title proper makes the row visually shouty and duplicates the
 // `context` field we already have. Split it off into an eyebrow.
+//
+// A second pattern: some fragments have *just* the section header as
+// the entire title ("COMMITTEES"). No dash, no detail — it's a top-of-
+// section opener whose substance lives in the speech body. Title-case
+// it for display so we don't render a wall of caps as a heading.
+const ALL_CAPS_HEADER = /^[A-Z][A-Z0-9 &/'-]{1,60}$/;
+
+function titleCaseAcronymSafe(s) {
+  return s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
+}
+
 function splitTitle(rawTitle) {
   if (!rawTitle) return { eyebrow: '', title: '' };
-  const m = rawTitle.match(/^([A-Z][A-Z0-9 &/'-]{1,40})\s*-\s*(.+)$/);
+  const trimmed = rawTitle.trim();
+  const m = trimmed.match(/^([A-Z][A-Z0-9 &/'-]{1,40})\s*-\s*(.+)$/);
   if (m) return { eyebrow: m[1].trim(), title: m[2].trim() };
-  return { eyebrow: '', title: rawTitle };
+  if (ALL_CAPS_HEADER.test(trimmed)) {
+    return { eyebrow: '', title: titleCaseAcronymSafe(trimmed) };
+  }
+  return { eyebrow: '', title: trimmed };
 }
 
 function toContribution(c) {
