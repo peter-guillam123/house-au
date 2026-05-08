@@ -31,13 +31,14 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import http.client
 import json
 import re
+import socket
 import sys
+import threading
 import time
-import urllib.error
 import urllib.parse
-import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -46,32 +47,73 @@ UA = (
     "(KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 )
 
-DISPLAY_URL = "https://www.aph.gov.au/Parliamentary_Business/Hansard/Hansard_Display"
-TRANSCRIPT_URL = "https://www.aph.gov.au/api/hansard/transcript"
+HOST = "www.aph.gov.au"
+DISPLAY_PATH   = "/Parliamentary_Business/Hansard/Hansard_Display"
+TRANSCRIPT_PATH = "/api/hansard/transcript"
 
 CHAMBER_TO_SLUG = {"reps": "hansardr", "senate": "hansards"}
 
 SID_RE = re.compile(r'data-sid="(\d{4})"')
 
 
-def http_get(url: str, params: dict | None = None, retries: int = 3) -> bytes:
+# ----- per-worker persistent HTTPS connection -----
+#
+# urllib opens a fresh TCP+TLS handshake per request, which on a US
+# laptop hitting aph.gov.au costs ~600ms of round-trip every time —
+# completely dominates the per-fragment cost. http.client supports
+# HTTP/1.1 keep-alive, so one connection per worker carries every
+# request. Reduces typical day cost from ~100s to ~30s.
+
+_thread_local = threading.local()
+
+
+def _conn() -> http.client.HTTPSConnection:
+    c = getattr(_thread_local, "conn", None)
+    if c is None:
+        c = http.client.HTTPSConnection(HOST, timeout=30)
+        _thread_local.conn = c
+    return c
+
+
+def _reset_conn() -> None:
+    c = getattr(_thread_local, "conn", None)
+    if c is not None:
+        try:
+            c.close()
+        except Exception:
+            pass
+    _thread_local.conn = http.client.HTTPSConnection(HOST, timeout=30)
+
+
+def http_get(path: str, params: dict | None = None, retries: int = 3) -> bytes:
     if params:
-        url = url + "?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
+        path = path + "?" + urllib.parse.urlencode(params)
+    headers = {
+        "User-Agent": UA,
+        "Accept":     "application/json, text/html, */*",
+        "Connection": "keep-alive",
+    }
     last_err: Exception | None = None
     for attempt in range(retries):
+        c = _conn()
         try:
-            with urllib.request.urlopen(req, timeout=30) as r:
-                return r.read()
-        except urllib.error.URLError as e:
+            c.request("GET", path, headers=headers)
+            resp = c.getresponse()
+            body = resp.read()
+            if resp.status == 200:
+                return body
+            last_err = RuntimeError(f"HTTP {resp.status} {resp.reason}")
+        except (http.client.HTTPException, ConnectionError, socket.error, OSError) as e:
             last_err = e
-            time.sleep(1.5 ** attempt)
-    raise RuntimeError(f"{url}: {last_err}")
+        # Connection may be in a bad state; reset before retrying.
+        _reset_conn()
+        time.sleep(1.5 ** attempt)
+    raise RuntimeError(f"{path}: {last_err}")
 
 
 def discover_sids(bid_path: str) -> list[str]:
     """Fetch the Hansard_Display page and return all section IDs."""
-    html = http_get(DISPLAY_URL, {"bid": bid_path, "sid": "0000"}).decode(
+    html = http_get(DISPLAY_PATH, {"bid": bid_path, "sid": "0000"}).decode(
         "utf-8", errors="replace"
     )
     return sorted(set(SID_RE.findall(html)))
@@ -79,7 +121,7 @@ def discover_sids(bid_path: str) -> list[str]:
 
 def fetch_fragment(bid_path: str, sid: str) -> dict:
     """Fetch one fragment as a JSON dict."""
-    body = http_get(TRANSCRIPT_URL, {"id": f"{bid_path}{sid}"})
+    body = http_get(TRANSCRIPT_PATH, {"id": f"{bid_path}{sid}"})
     return json.loads(body)
 
 
@@ -100,7 +142,7 @@ def harvest_day(sitting: dict, out_dir: Path, force: bool = False) -> dict:
             fragments.append({"sid": sid, "data": fetch_fragment(bid_path, sid)})
         except Exception as e:
             fragments.append({"sid": sid, "error": str(e)})
-        time.sleep(0.1)  # 10 req/s ceiling per worker — polite to aph.gov.au
+        time.sleep(0.02)  # ~50 req/s per worker ceiling; politeness floor
 
     payload = {
         "chamber": chamber,
@@ -126,8 +168,8 @@ def main(argv: list[str]) -> int:
                     help="Output directory for per-day JSON files")
     ap.add_argument("--since", default=None,
                     help="Only harvest sittings on or after this ISO date")
-    ap.add_argument("--workers", type=int, default=4,
-                    help="Concurrent sitting-day workers (default 4)")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="Concurrent sitting-day workers (default 8)")
     ap.add_argument("--force", action="store_true",
                     help="Re-fetch even if the per-day file exists")
     ap.add_argument("--limit", type=int, default=0,
