@@ -1,0 +1,110 @@
+name: Nightly harvest
+
+# Runs at 18:00 UTC daily — early-morning Sydney, after the previous
+# day's Hansard has typically been published (~24h after sitting).
+# Also dispatch-able manually for backfills or re-bootstraps.
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Earliest sitting date to fetch (YYYY-MM-DD). Default: 14 days ago."
+        required: false
+        default: ''
+      refresh_members:
+        description: "Refresh members.json (party/chamber lookups). Default: yes."
+        required: false
+        default: 'yes'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: harvest
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          # Need full history so the commit + push at the end works.
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Restore the raw + parsed fragment caches between runs. They live
+      # under tools/ and are otherwise gitignored — the cache is what makes
+      # nightly runs cheap (a few minutes) instead of multi-hour rebuilds.
+      # First-ever run will be slow because cache is empty; that's fine.
+      - name: Restore harvest cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            tools/raw-fragments
+            tools/parsed-fragments
+            tools/hansard-ids.json
+          key: house-au-harvest-v1-${{ github.run_id }}
+          restore-keys: |
+            house-au-harvest-v1-
+
+      - name: Compute --since cutoff
+        id: since
+        run: |
+          if [ -n "${{ github.event.inputs.since }}" ]; then
+            echo "value=${{ github.event.inputs.since }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(date -u -d '14 days ago' +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Discover sitting days
+        # Always walks the whole 2020-onwards listing on aph.gov.au — that
+        # page returns all years in one document, ~50KB, no rate concern.
+        run: python3 tools/discover_hansards.py --since 2020-01-01
+
+      - name: Fetch new fragments (resumable)
+        # Skips days already in the raw-fragments cache. Bound to the
+        # rolling --since window so a cache miss doesn't trigger a full
+        # 4-hour rebuild — only the recent two weeks get fetched if cache
+        # is fresh, but the parser still operates over all cached days.
+        run: |
+          python3 tools/fetch_fragments.py \
+            --since "${{ steps.since.outputs.value }}" \
+            --workers 8
+
+      - name: Parse fragments
+        run: python3 tools/parse_fragments.py
+
+      - name: Refresh members.json
+        # Cheap (~45s) and party data shifts when MPs swap parties or new
+        # ones are sworn in, so doing it every run is fine.
+        if: ${{ github.event.inputs.refresh_members != 'no' }}
+        run: python3 tools/build_members.py
+
+      - name: Build shards
+        run: python3 tools/build_index.py
+
+      - name: Commit + push if anything changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Stage only the published artefacts; the harvester intermediates
+          # (raw-fragments, parsed-fragments) stay gitignored.
+          git add hansard-*.json hansard-*.json.gz members.json 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No new sitting days landed; nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "Nightly harvest: $(date -u +%Y-%m-%d)"
+          git push
