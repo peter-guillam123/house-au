@@ -81,8 +81,109 @@
       "url": "hansard-2022-Q4.json.gz",
       "from": "2022-10-01",
       "to": "2022-12-31",
-      "count": 1724,
+      "count": 8666,
       "compressed": true
+    },
+    {
+      "url": "hansard-2023-Q1.json.gz",
+      "from": "2023-01-01",
+      "to": "2023-03-31",
+      "count": 10362,
+      "compressed": true
+    },
+    {
+      "url": "hansard-2023-Q2.json.gz",
+      "from": "2023-04-01",
+      "to": "2023-06-30",
+      "count": 8120,
+      "compressed": true
+    },
+    {
+      "url": "hansard-2023-Q3.json.gz",
+      "from": "2023-07-01",
+      "to": "2023-09-30",
+      "count": 8416,
+      "compressed": true
+    },
+    {
+      "url": "hansard-2023-Q4.json.gz",
+      "from": "2023-10-01",
+      "to": "2023-12-31",
+      "count": 10450,
+      "compressed": true
+    },
+    {
+      "url": "hansard-2024-Q1.json.gz",
+      "from": "2024-01-01",
+      "to": "2024-03-31",
+      "count": 8710,
+      "compressed": true
+    },
+    {
+      "url": "hansard-2024-05.json",
+      "from": "2024-05-01",
+      "to": "2024-05-31",
+      "count": 2553
+    },
+    {
+      "url": "hansard-2024-06.json",
+      "from": "2024-06-01",
+      "to": "2024-06-30",
+      "count": 3376
+    },
+    {
+      "url": "hansard-2024-07.json",
+      "from": "2024-07-01",
+      "to": "2024-07-31",
+      "count": 2155
+    },
+    {
+      "url": "hansard-2024-08.json",
+      "from": "2024-08-01",
+      "to": "2024-08-31",
+      "count": 4196
+    },
+    {
+      "url": "hansard-2024-09.json",
+      "from": "2024-09-01",
+      "to": "2024-09-30",
+      "count": 3135
+    },
+    {
+      "url": "hansard-2024-10.json",
+      "from": "2024-10-01",
+      "to": "2024-10-31",
+      "count": 1721
+    },
+    {
+      "url": "hansard-2024-11.json",
+      "from": "2024-11-01",
+      "to": "2024-11-30",
+      "count": 6718
+    },
+    {
+      "url": "hansard-2025-02.json",
+      "from": "2025-02-01",
+      "to": "2025-02-28",
+      "count": 4242
+    },
+    {
+      "url": "hansard-2025-03.json",
+      "from": "2025-03-01",
+      "to": "2025-03-31",
+      "count": 1438
+    },
+    {
+      "url": "hansard-2025-07.json",
+      "from": "2025-07-01",
+      "to": "2025-07-31",
+      "count": 3217
+    },
+    {
+      "url": "hansard-2025-08.json",
+      "from": "2025-08-01",
+      "to": "2025-08-31",
+      "count": 488
     }
   ]
 }
