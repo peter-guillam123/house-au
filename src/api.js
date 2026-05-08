@@ -119,13 +119,29 @@ const SOURCE_DISPLAY = {
   Statement:             'Statement',
 };
 
+// AU debate titles are routinely shaped like:
+//   "COMMITTEES - Impact of the Conflict in Iran Select Committee - Appointment"
+//   "BUSINESS - Days and Hours of Meeting"
+//   "BILLS - National Reconstruction Fund Bill 2023 - Second Reading"
+// The leading ALL-CAPS segment is parliament's section tag. Treating it
+// as the title proper makes the row visually shouty and duplicates the
+// `context` field we already have. Split it off into an eyebrow.
+function splitTitle(rawTitle) {
+  if (!rawTitle) return { eyebrow: '', title: '' };
+  const m = rawTitle.match(/^([A-Z][A-Z0-9 &/'-]{1,40})\s*-\s*(.+)$/);
+  if (m) return { eyebrow: m[1].trim(), title: m[2].trim() };
+  return { eyebrow: '', title: rawTitle };
+}
+
 function toContribution(c) {
   const house = c.chamber === 'reps' ? 'Reps'
               : c.chamber === 'senate' ? 'Senate' : '';
   const memberName = c.electorate
     ? `${c.speakerName} (${c.electorate})`
     : c.speakerName;
+  const { eyebrow, title } = splitTitle(c.title || '');
   return {
+    eyebrow,
     source:       SOURCE_DISPLAY[c.source] || c.source,
     id:           c.id,
     date:         c.date,
@@ -134,8 +150,8 @@ function toContribution(c) {
     memberName,
     shortName:    c.shortName || c.speakerName || '',
     party:        '',                      // not yet enriched
-    title:        c.title || '',
-    section:      c.context || '',
+    title:        title || c.title || '',
+    section:      c.context || eyebrow || '',
     debateExtId:  '',                      // AU links are direct, no ext-id needed
     snippet:      c.fullText || '',
     fullText:     c.fullText || '',

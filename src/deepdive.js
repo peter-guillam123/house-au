@@ -640,6 +640,35 @@ const STOP_PHRASES = new Set([
   'It is', 'It was', 'It will',
   'We are', 'We have', 'We will', 'We need', 'We must', 'We can',
   'They are', 'They have', 'They will',
+
+  // ---------- AU additions ----------
+  // Chamber officers and presiding roles
+  'Mr President', 'Madam President',
+  'Deputy President', 'DEPUTY PRESIDENT',
+  'Madam Deputy', 'Madam Deputy President', 'Mr Deputy President',
+  'DEPUTY SPEAKER',
+  'Federation Chamber',
+  'Acting Speaker', 'Acting Deputy', 'Acting Deputy President',
+
+  // AU parties and party-as-government framings (already represented in
+  // chart's party stack and members panel — duplicating them in
+  // co-terms is wasted real estate)
+  'Australian Labor', 'Australian Labor Party', 'Labor Party',
+  'Liberal Party', 'Liberal National', 'National Party',
+  'Australian Greens', 'The Greens',
+  'One Nation', 'United Australia',
+  'Albanese Government', 'Albanese Labor',
+  'Morrison Government', 'Coalition Government',
+  'Australian Government', 'Federal Government',
+  'When Labor', 'When Liberal',     // sentence-start fragments
+
+  // Procedural stage labels — "Second Reading" already there from UK
+  // House; AU also says these:
+  'Second Reading Consideration', 'Third Reading Consideration',
+  'Consideration in Detail',
+
+  // National framing
+  'Across Australia', 'In Australia',
 ]);
 
 
@@ -649,6 +678,12 @@ const PHRASE_LEAD_DROP = /^(The|A|An|This|That|These|Those|My|Our|Their|His|Her|
 // same pattern so multi-word phrases survive intact.
 const PHRASE_RE = /\b([A-Z][a-zA-Z]+(?:-[a-zA-Z]+)*(?:\s+[A-Z][a-zA-Z]+(?:-[a-zA-Z]+)*){1,3})\b/g;
 
+// AU Hansard renders procedural address as honorific + uppercase
+// surname: "Mr HOLZBERGER", "Ms PENFOLD", "Senator CASH", "Mr TIM
+// WILSON". These aren't co-terms — the speaker is already represented
+// in the members panel. Drop them at extraction time.
+const AU_PROCEDURAL_NAME_RE = /^(Mr|Mrs|Ms|Miss|Senator|Sen)\s+[A-Z][A-Z'-]+(\s+[A-Z][A-Z'-]+)*$/;
+
 function extractPhrases(text, termLower) {
   if (!text) return [];
   const found = new Set();
@@ -656,6 +691,7 @@ function extractPhrases(text, termLower) {
     let p = m[1].replace(PHRASE_LEAD_DROP, '');
     if (!p || p.split(/\s+/).length < 2) continue;
     if (STOP_PHRASES.has(p)) continue;
+    if (AU_PROCEDURAL_NAME_RE.test(p)) continue;
     if (termLower && p.toLowerCase() === termLower) continue;
     found.add(p);
   }
@@ -734,6 +770,7 @@ function renderHeadlines() {
         ${partyBit}
         ${houseBit}
       </p>
+      ${h.eyebrow ? `<p class="result-eyebrow dd-hl-eyebrow">${escapeHtml(h.eyebrow)}</p>` : ''}
       <h3 class="dd-hl-title"><a href="${escapeHtml(h.link)}" target="_blank" rel="noopener" title="${escapeHtml(h.title || '')}">${escapeHtml(h.title || '(untitled)')}</a></h3>
       <p class="dd-hl-snippet">${snippetHtml(h.snippet || h.fullText, state.term, 240)}</p>
     </li>`;

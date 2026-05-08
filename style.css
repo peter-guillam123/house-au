@@ -787,14 +787,34 @@ main {
 .src-ws      { color: var(--src-ws); }
 .src-cmte    { color: var(--src-cmte); }
 
-.result-title {
+/* Small mono-caps section tag above the title — soaks up the AU
+   "COMMITTEES - X" / "BUSINESS - Y" prefixes so the heading proper
+   reads as a heading proper. Reused by Deep Dive headlines. */
+.result-eyebrow {
   order: 2;
+  margin: 0.05rem 0 -0.05rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.dd-hl-eyebrow {
+  margin: 0 0 0.1rem;
+}
+
+.result-title {
+  order: 3;
   margin: 0.15rem 0 0;
   font-family: var(--serif);
   font-variation-settings: 'opsz' 32, 'wght' 500;
-  font-size: clamp(1.2rem, 2.6vw, 1.55rem);
-  line-height: 1.2;
-  letter-spacing: -0.018em;
+  /* Matches the Deep Dive size — AU's verbose compound titles wear
+     better at this scale, and the snippet beneath stays the
+     journalistically primary thing. */
+  font-size: clamp(1.08rem, 2vw, 1.3rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
   /* Some AU debate titles concatenate every committee involved in a
      report — easily 200+ words, which steamrollers the snippet below.
      Clamp visually to 3 lines; full title remains in the link's
@@ -820,7 +840,7 @@ main {
 }
 
 .result-snippet {
-  order: 3;
+  order: 4;
   margin: 0.3rem 0 0;
   font-family: var(--sans);
   font-size: 0.96rem;
@@ -1017,7 +1037,7 @@ footer {
   }
 
   .result { padding: 1.2rem 0 1.3rem; gap: 0.4rem; }
-  .result-title { font-size: 1.12rem; }
+  .result-title { font-size: 1.04rem; }
   .result-meta { font-size: 0.8rem; gap: 0.35rem 0.55rem; }
   .result-date { font-size: 0.68rem; }
   .result-snippet { font-size: 0.93rem; }
