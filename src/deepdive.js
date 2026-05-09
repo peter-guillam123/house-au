@@ -937,14 +937,21 @@ async function processMonth(month, myToken) {
         });
       }
 
-      // Headlines — flat copy so the streamed shard objects can be GC'd
+      // Headlines — flat copy so the streamed shard objects can be GC'd.
+      // We cap fullText at 2000 chars: co-term extraction and snippet
+      // rendering both find what they need within the first paragraph or
+      // two, and the canonical full text is one click away on Hansard.
+      // Keeping the full body for 1,500 headlines was the dominant
+      // memory pressure on wide Deep Dive searches like "AUKUS, last year".
+      // We also drop the separate snippet field — api.js's toContribution
+      // sets snippet === fullText, so storing both was pure duplication.
       if (state.headlines.length < MAX_HEADLINES) {
         state.headlines.push({
           date: it.date, memberName: it.memberName, party: it.party,
           house: it.house,
           memberId: it.memberId, debateExtId: it.debateExtId,
           title: it.title, link: it.link,
-          snippet: it.snippet, fullText: it.fullText,
+          fullText: (it.fullText || '').slice(0, 2000),
         });
       }
     }
