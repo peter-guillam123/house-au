@@ -275,7 +275,12 @@ async function runSearch(sourceMatch, opts) {
     if (!sourceMatch(c.source)) return;
     if (!passesFilters(c, opts)) return;
     if (!matchTerm(c)) return;
-    hits.push(c);
+    // Cap fullText at 2000 chars when stashing the hit. The match has
+    // already fired by this point; snippet rendering only needs a few
+    // hundred chars of context around it, and we can't keep the whole
+    // body for thousands of hits without blowing Chrome's per-tab
+    // budget. Same trick that fixed the Deep Dive AUKUS-Snap.
+    hits.push({ ...c, fullText: (c.fullText || '').slice(0, 2000) });
   });
   hits.sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id.localeCompare(a.id));
   const skip = opts.skip ?? 0;
