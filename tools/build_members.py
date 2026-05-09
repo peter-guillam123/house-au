@@ -185,9 +185,13 @@ def main(argv: list[str]) -> int:
     elapsed = time.time() - started
     print(f"\n  ok={len(members)}  failed={failed}  in {elapsed:.0f}s")
 
+    # Sort MPID keys so the on-disk file is deterministic between runs.
+    # Python dict iteration order is insertion-order, but ThreadPoolExecutor's
+    # as_completed order is non-deterministic, so without sorting the same
+    # parties produce a 600-line reorder churn in git every nightly run.
     payload = {
         "as_of":   dt.date.today().isoformat(),
-        "members": members,
+        "members": dict(sorted(members.items())),
     }
     Path(args.out).write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(f"  wrote {args.out}")
