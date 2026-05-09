@@ -60,46 +60,55 @@ async function runSearch() {
   const myToken = ++state.searchToken;
   $results.innerHTML = '';
   setStatus('Searching…');
+  $form.classList.add('is-loading');
 
-  const m = await getManifest();
-  const rounds = m.rounds || [];
-  const targetRounds = state.roundId
-    ? rounds.filter((r) => r.id === state.roundId)
-    : rounds;
-  if (!targetRounds.length) {
-    setStatus('No rounds available.', true);
-    return;
-  }
+  try {
+    const m = await getManifest();
+    const rounds = m.rounds || [];
+    const targetRounds = state.roundId
+      ? rounds.filter((r) => r.id === state.roundId)
+      : rounds;
+    if (!targetRounds.length) {
+      setStatus('No rounds available.', true);
+      return;
+    }
 
-  const matchTerm = termMatcher(state.term);
-  const hits = [];
+    const matchTerm = termMatcher(state.term);
+    const hits = [];
 
-  for (const r of targetRounds) {
-    const rows = await loadShard(r);
-    if (myToken !== state.searchToken) return;            // user moved on
-    for (const row of rows) {
-      if (state.committeeSlug && row.committee_slug !== state.committeeSlug) continue;
-      // Skip portfolio_header rows when filter empty — they're navigation
-      // not substance. Surface them only if the search term actually hits.
-      if (row.section_kind === 'portfolio_header' && !state.term) continue;
-      if (!matchTerm(row.fullText)) continue;
-      hits.push(row);
+    for (const r of targetRounds) {
+      const rows = await loadShard(r);
+      if (myToken !== state.searchToken) return;            // user moved on
+      for (const row of rows) {
+        if (state.committeeSlug && row.committee_slug !== state.committeeSlug) continue;
+        // Skip portfolio_header rows when filter empty — they're navigation
+        // not substance. Surface them only if the search term actually hits.
+        if (row.section_kind === 'portfolio_header' && !state.term) continue;
+        if (!matchTerm(row.fullText)) continue;
+        hits.push(row);
+      }
+    }
+
+    hits.sort((a, b) =>
+      (b.date || '').localeCompare(a.date || '') ||
+      (a.committee_slug || '').localeCompare(b.committee_slug || '')
+    );
+
+    if (!hits.length) {
+      setStatus(state.term
+        ? `No matches for ${JSON.stringify(state.term)}${describeFilters()}.`
+        : `No sections found${describeFilters()}.`);
+      return;
+    }
+    renderHits(hits);
+    setStatus(`${hits.length.toLocaleString('en-AU')} section${hits.length === 1 ? '' : 's'}${describeFilters()}.`);
+  } finally {
+    // Only clear the loading state if we're still the latest search —
+    // otherwise we'd kill a freshly-running pulse from a follow-on search.
+    if (myToken === state.searchToken) {
+      $form.classList.remove('is-loading');
     }
   }
-
-  hits.sort((a, b) =>
-    (b.date || '').localeCompare(a.date || '') ||
-    (a.committee_slug || '').localeCompare(b.committee_slug || '')
-  );
-
-  if (!hits.length) {
-    setStatus(state.term
-      ? `No matches for ${JSON.stringify(state.term)}${describeFilters()}.`
-      : `No sections found${describeFilters()}.`);
-    return;
-  }
-  renderHits(hits);
-  setStatus(`${hits.length.toLocaleString('en-AU')} section${hits.length === 1 ? '' : 's'}${describeFilters()}.`);
 }
 
 function describeFilters() {

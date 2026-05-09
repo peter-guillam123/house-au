@@ -138,7 +138,12 @@ async function shardsForRange(startDate, endDate) {
 // SHARD_BATCH overlap network round-trips while keeping peak parsed
 // memory bounded; sequential iteration was correct but ~3x slower than
 // it needed to be on wide searches.
-const SHARD_BATCH = 4;
+// Bumped from 4 to 6 for ~50% more network parallelism on wide
+// "last 5 years" searches. The LRU cap of 3 keeps long-term cache
+// pressure unchanged; in-flight memory peaks at 6 parsed shards
+// during the batch boundary, well within Chrome's per-tab budget
+// after the headlines/snippet cleanup.
+const SHARD_BATCH = 6;
 async function streamContributions(opts, visit) {
   const specs = await shardsForRange(opts.startDate, opts.endDate);
   const seen = new Set();
