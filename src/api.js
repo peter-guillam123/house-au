@@ -238,8 +238,16 @@ function toContribution(c) {
   const memberName = c.electorate
     ? `${c.speakerName} (${c.electorate})`
     : c.speakerName;
-  const { eyebrow, title } = splitTitle(c.title || '');
+  const rawTitle = c.title || '';
+  const { eyebrow, title } = splitTitle(rawTitle);
   const m = memberInfo(c.speakerId);
+  // Synthesise a debate key from (date, raw title) so Deep Dive's
+  // "In these debates" panel can group AU contributions. UK had a
+  // canonical debateExtId from the Hansard API; AU's site has no
+  // equivalent, so we hash on the natural editorial unit (one debate
+  // = one (sitting day, debate title) pair). Two days with an
+  // "Adjournment" debate stay correctly distinct.
+  const debateExtId = rawTitle ? `${c.date || ''}|${rawTitle}` : '';
   return {
     eyebrow,
     source:       SOURCE_DISPLAY[c.source] || c.source,
@@ -252,7 +260,7 @@ function toContribution(c) {
     party:        (m && m.party) || '',
     title:        title || c.title || '',
     section:      c.context || eyebrow || '',
-    debateExtId:  '',                      // AU links are direct, no ext-id needed
+    debateExtId,
     snippet:      c.fullText || '',
     fullText:     c.fullText || '',
     link:         c.link || '',
