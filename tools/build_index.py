@@ -129,12 +129,17 @@ def main(argv: list[str]) -> int:
     # failure mode of a first nightly run with no cache restored.
     n_parsed = sum(1 for _ in parsed_root.rglob("*.json")) if parsed_root.exists() else 0
     if args.min_parsed_days and n_parsed < args.min_parsed_days:
+        # Exit 0 (not 2) so the CI workflow continues into its commit
+        # step, which then sees no shard changes and skips the push.
+        # The published shards stay intact; the warning still surfaces
+        # in the run log so a real cache problem isn't silently masked.
         print(f"REFUSING to rebuild: only {n_parsed} parsed days under {parsed_root} "
               f"(< {args.min_parsed_days}). The cache is likely empty. Run with a "
               f"full --since to backfill before rebuilding, or pass "
               f"--min-parsed-days=0 if you really mean a sparse build.",
               file=sys.stderr)
-        return 2
+        print("Existing shards preserved — workflow will skip commit.")
+        return 0
 
     contribs = load_all_contributions(parsed_root)
     if not contribs:

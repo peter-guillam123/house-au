@@ -266,8 +266,12 @@ def main(argv: list[str]) -> int:
     raw_root = Path(args.raw)
     out_root = Path(args.out)
     if not raw_root.exists():
-        print(f"No raw fragments at {raw_root}", file=sys.stderr)
-        return 1
+        # Tolerate the empty case — happens on a CI cache miss when no
+        # new sittings were fetched. Don't fail the workflow; just leave
+        # parsed-fragments untouched and let downstream build_index do
+        # its safety-guard refuse cleanly.
+        print(f"No raw fragments at {raw_root} — nothing to parse.")
+        return 0
 
     days = total = 0
     for raw_path in sorted(raw_root.rglob("*.json")):

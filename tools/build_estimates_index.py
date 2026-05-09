@@ -73,11 +73,14 @@ def main(argv: list[str]) -> int:
     # cache wipe the published Estimates shards.
     n_parsed = sum(1 for _ in parsed_root.glob("*.json")) if parsed_root.exists() else 0
     if args.min_parsed_sessions and n_parsed < args.min_parsed_sessions:
+        # Exit 0 (same rationale as build_index.py) so the workflow
+        # continues, sees no diff, and skips commit.
         print(f"REFUSING to rebuild: only {n_parsed} parsed sessions under {parsed_root} "
               f"(< {args.min_parsed_sessions}). The cache is likely empty. Run "
               f"discover/fetch/parse first, or pass --min-parsed-sessions=0 if "
               f"you really mean a sparse build.", file=sys.stderr)
-        return 2
+        print("Existing shards preserved — workflow will skip commit.")
+        return 0
 
     rows = load_all_rows(parsed_root)
     if not rows:
