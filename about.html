@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&family=Source+Serif+4:ital,opsz,wght@1,8..60,300..600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css?v=43">
+  <link rel="stylesheet" href="style.css?v=44">
 </head>
 <body>
   <header class="topbar">
@@ -30,9 +30,8 @@
       <nav class="topnav">
         <a href="./">Search</a>
         <a href="deep-dive.html">Deep Dive</a>
-        <a href="committees.html">Committees</a>
-        <a href="transcripts.html">Transcripts</a>
         <a href="estimates.html">Estimates</a>
+        <a href="about.html" aria-current="page">About</a>
       </nav>
     </div>
   </header>
@@ -42,72 +41,137 @@
     <p class="lede">
       A federal Australian sister to <a href="https://github.com/peter-guillam123/House">House (UK)</a>,
       built for Guardian Australia journalists who need to triage Hansard
-      and ParlInfo faster than the official tools allow. Same five-surface
-      shape as House UK, with a fifth dedicated to <a href="estimates.html">Senate
-      Estimates</a> &mdash; the twice-yearly hearings where senators grill
-      departmental officials over budget allocations, and where most of
-      the genuinely interesting accountability stories surface. There&rsquo;s
-      no equivalent in UK House because there&rsquo;s no equivalent in
-      the UK.
+      and Senate Estimates faster than the official tools allow. Three
+      surfaces: <a href="./">Search</a> across spoken contributions,
+      questions on notice and ministerial statements; <a href="deep-dive.html">Deep
+      Dive</a> for plotting a term over time as a party-stacked timeline;
+      <a href="estimates.html">Estimates</a> for searching twice-yearly
+      Senate hearings by round, committee, witness and senator. The third
+      is the headline AU surface &mdash; UK House has no equivalent
+      because the UK Parliament has no equivalent.
     </p>
     <p>
       Use cases that drove the shape: a defence correspondent reading
       everything said about AUKUS in a single sitting fortnight; a
       political reporter tracking how a junior minister has answered
       Estimates questions over a year; an investigations editor scanning
-      every committee mention of robodebt or sports rorts; a tech
-      reporter pulling every Estimates exchange about content moderation
-      or Online Safety. The main <a href="./">Search</a> spans the lot;
-      <a href="deep-dive.html">Deep Dive</a> turns a term into a
-      party-stacked timeline; <a href="committees.html">Committees</a>
-      navigates inquiries; <a href="transcripts.html">Transcripts</a>
-        <a href="estimates.html">Estimates</a>
-      searches the words inside committee oral evidence.
+      every Estimates exchange about robodebt or sports rorts; a tech
+      reporter pulling every Estimates appearance from a specific
+      department secretary.
     </p>
 
     <h2>How it&rsquo;s made</h2>
     <p>
-      Vanilla JavaScript on GitHub Pages, no Worker. House UK leans on UK
-      Parliament&rsquo;s live, CORS-friendly API; aph.gov.au has no
-      equivalent &mdash; just per-day Hansard XML files and ParlInfo&rsquo;s
-      web search. So House AU inverts the architecture: a nightly
-      GitHub Actions job walks the latest sitting days, downloads each
-      Hansard XML, parses it into speaker-attributed segments, and
-      commits a JSON index back to the repo. The browser fetches that
-      JSON once and searches it client-side. No live API dependency,
-      no proxy, no quota concerns. The cost is a one-day lag &mdash;
-      yesterday&rsquo;s Hansard appears in tomorrow&rsquo;s harvest, which
-      matters less than it sounds because Hansard itself runs about 24
-      hours behind the chamber anyway.
+      Vanilla JavaScript on GitHub Pages, no proxy, no live API. UK House
+      leans on UK Parliament&rsquo;s live, CORS-friendly endpoints;
+      aph.gov.au doesn&rsquo;t expose an equivalent. So House AU inverts
+      the architecture: a nightly GitHub Action walks the latest sitting
+      days, fetches contribution JSON via parliament&rsquo;s own internal
+      transcript endpoint, parses it into speaker-attributed rows, and
+      commits a tiered set of static shards back to the repo &mdash;
+      per-month for the live two years, gzipped per-quarter for the older
+      archive. The browser fetches the manifest, picks the shards
+      overlapping the user&rsquo;s date range, and searches them
+      client-side. The cost is a ~24-hour lag, which matters less than
+      it sounds because Hansard itself runs about a day behind the chamber.
+    </p>
+    <p>
+      Senate Estimates runs through a parallel pipeline because the
+      data shape is different: each fragment covers an entire
+      department&rsquo;s grilling for one day rather than a single
+      speaker turn, and the editorially useful unit is the section
+      (department) rather than the turn. Same harvester architecture,
+      different parser, separate per-round shards.
     </p>
     <p>
       Built with Claude Code, internal newsroom tool, currently hosted
       on my personal GitHub. The Parliament of Australia publishes
       its material under CC-BY-NC-ND 4.0 &mdash; non-commercial, no
-      derivatives. Counsel are relaxed about the framing here because
-      this is a research surface for journalists rather than a public
-      republication of a derivative work. The expectation is that this
-      moves to the Guardian stack behind authentication once it&rsquo;s
-      doing useful work.
+      derivatives. Counsel are relaxed about the framing because this
+      is a research surface for journalists, not a public republication
+      of a derivative work. The expectation is it moves to the Guardian
+      stack behind authentication once it&rsquo;s doing useful work.
     </p>
 
-    <h2>What it doesn&rsquo;t do yet</h2>
+    <h2>What it doesn&rsquo;t do</h2>
     <p>
-      Everything. This is scaffold mode &mdash; the visual shell, the
-      palette and the page structure are in place, but the harvester
-      that actually fills the index hasn&rsquo;t been built yet. So a
-      search returns nothing, intentionally and clearly, until the next
-      few commits land. The diary below tracks where we are.
+      It doesn&rsquo;t mirror UK House&rsquo;s Committees and Transcripts
+      surfaces. UK Parliament&rsquo;s Committees API exposes oral evidence
+      transcripts as searchable text; aph.gov.au doesn&rsquo;t, and the
+      underlying ParlInfo XML sits behind an Azure WAF that blocks
+      automated requests. Building it for AU would have meant a third
+      parallel harvester pipeline fighting the source at every step,
+      with most of the editorially interesting committee work already
+      covered by Senate Estimates. Cut on purpose.
     </p>
     <p>
-      Things deliberately on the not-yet-list: alerts, saved searches,
-      cross-state coverage, the New Zealand sister tool somebody will
-      eventually ask about. Federal first; widen the scope only if the
-      narrow version actually gets used.
+      Also not in here: alerts, saved searches, cross-state coverage,
+      the New Zealand sister tool somebody will eventually ask about.
+      Federal first; widen the scope only if the narrow version actually
+      gets used.
     </p>
 
     <section class="changelog">
       <h2>Diary</h2>
+
+      <div class="entry milestone">
+        <p class="when">May 2026</p>
+        <h3>Cut Committees and Transcripts; settled on three surfaces</h3>
+        <p>
+          The original plan had House AU mirror UK&rsquo;s five-surface shape.
+          Built Search, Deep Dive and Estimates &mdash; all working,
+          journalistically useful. Started on the committee transcripts pipeline
+          and discovered aph.gov.au doesn&rsquo;t expose oral evidence
+          transcripts the way UK Parliament&rsquo;s Committees API does. The
+          ParlInfo XML sits behind a JS-challenge WAF; the public-facing
+          inquiry pages load their content from a JS endpoint we&rsquo;d
+          have to chase. Several days of fighting the source for a feature
+          that&rsquo;s mostly covered by what Estimates already does.
+        </p>
+        <p>
+          So: cut. Removed the Committees and Transcripts tabs, the empty
+          stub pages, the unused JS modules, the Committee chip in the
+          Sources filter (it filtered everything out anyway). Three
+          surfaces: <a href="./">Search</a>, <a href="deep-dive.html">Deep
+          Dive</a>, <a href="estimates.html">Estimates</a>. Each fully
+          populated, no &ldquo;coming soon&rdquo; debt in the nav.
+          AU&rsquo;s thinness is appropriate: where UK Parliament publishes
+          live APIs, ours has to harvest, so every surface is real
+          maintenance.
+        </p>
+      </div>
+
+      <div class="entry">
+        <p class="when">May 2026</p>
+        <h3>Senate Estimates, the headline AU surface</h3>
+        <p>
+          The shape that doesn&rsquo;t exist in UK House. Twice-yearly
+          hearings where senators question departmental officials over
+          budget allocations &mdash; the densest accountability surface
+          AU produces. Different data shape from chamber Hansard
+          (each fragment covers a whole department&rsquo;s grilling, not
+          a single speaker turn), so a parallel pipeline: discovery from
+          the schedule page, fetcher reusing the same JSON endpoint we use
+          for chamber, parser splitting TalkText into per-section rows,
+          per-round shards, dedicated UI with round + committee filters
+          and Q+A speaker chips. 555 sections across 70 sessions, 4 rounds.
+        </p>
+      </div>
+
+      <div class="entry">
+        <p class="when">May 2026</p>
+        <h3>Party enrichment + nightly harvester</h3>
+        <p>
+          Mapped the 324 active MPIDs to party + chamber by scraping each
+          parliamentarian&rsquo;s profile page, joined to contributions at
+          render time so the result rows now carry party chips and Deep
+          Dive&rsquo;s timeline finally stacks by party. Plus a nightly
+          GitHub Action that does the whole pipeline overnight and
+          commits the diff &mdash; an &ldquo;Index updated X&rdquo; stamp
+          on Search goes amber if the date is more than 7 days old, so a
+          stalled harvester is visible at a glance.
+        </p>
+      </div>
 
       <div class="entry milestone">
         <p class="when">May 2026</p>
@@ -147,7 +211,7 @@
   <footer>
     <div class="footer-inner">
       <p class="colophon"><a class="back" href="./">← Back to search</a></p>
-      <p class="colophon-meta">Internal newsroom tool &mdash; scaffold mode</p>
+      <p class="colophon-meta">Internal newsroom tool</p>
     </div>
   </footer>
 </body>

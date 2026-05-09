@@ -280,13 +280,11 @@ const SRC = {
   written:       (s) => s === 'QuestionOnNotice' || s === 'Statement',
   wq:            (s) => s === 'QuestionOnNotice',
   ws:            (s) => s === 'Statement',
-  committee:     (_s) => false,           // chamber-only harvest for now
   any:           () => true,
 };
 
 export async function searchSpoken(opts)            { return runSearch(SRC.spoken,    opts); }
 export async function searchWrittenHansard(opts)    { return runSearch(SRC.written,   opts); }
-export async function searchCommitteeDebates(opts)  { return runSearch(SRC.committee, opts); }
 export async function searchWrittenQuestions(opts)  { return runSearch(SRC.wq,        opts); }
 export async function searchWrittenStatements(opts) { return runSearch(SRC.ws,        opts); }
 
@@ -384,13 +382,3 @@ export async function membersByPartyId(partyId) {
   return out;
 }
 
-// ---------------- Committees / inquiries / oral evidence ----------------
-//
-// Not yet harvested. Surfaces stay rendered in their empty state.
-
-const EMPTY_PAGE = Object.freeze({ total: 0, items: [] });
-
-export async function searchInquiries(_opts)        { return EMPTY_PAGE; }
-export async function searchOralEvidence(_opts)     { return EMPTY_PAGE; }
-export async function inquiryById(_id)              { return null; }
-export async function oralEvidenceTranscript(_id)   { return null; }

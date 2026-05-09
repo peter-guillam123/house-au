@@ -1,7 +1,7 @@
 import {
-  searchSpoken, searchWrittenQuestions, searchWrittenStatements, searchCommitteeDebates,
+  searchSpoken, searchWrittenQuestions, searchWrittenStatements,
   memberById, getIndexDate,
-} from './api.js?v=10';
+} from './api.js?v=11';
 import { resolvePartyToMemberIds, getPartyList, memberAutocomplete } from './filters.js?v=7';
 import { formatDate, snippetHtml, escapeHtml, SOURCE_CLASS, partyColor, partyShortName } from './format.js?v=8';
 import { buildMarkdownExport, exportFilename, downloadMarkdown } from './export.js?v=1';
@@ -13,14 +13,14 @@ const state = {
   preset: 'year',
   customFrom: '',
   customTo: '',
-  sources: new Set(['spoken', 'wq', 'ws', 'committee']),
+  sources: new Set(['spoken', 'wq', 'ws']),
   house: 'Both',
   party: null,
   member: null,
   pageSize: 20,
   // per-source pagination
-  offsets: { spoken: 0, wq: 0, ws: 0, committee: 0 },
-  totals:  { spoken: 0, wq: 0, ws: 0, committee: 0 },
+  offsets: { spoken: 0, wq: 0, ws: 0 },
+  totals:  { spoken: 0, wq: 0, ws: 0 },
   // accumulated results
   items: [],
   searchToken: 0,
@@ -119,7 +119,7 @@ $clearMember.addEventListener('click', () => {
 
 // ---------- shareable URLs ----------
 
-const ALL_SOURCES = ['spoken', 'wq', 'ws', 'committee'];
+const ALL_SOURCES = ['spoken', 'wq', 'ws'];
 
 function buildUrlFromState() {
   const p = new URLSearchParams();
@@ -346,10 +346,9 @@ async function runSearch(isFresh) {
   const fetchOpts = { ...baseOpts, take };
 
   const fetchers = [];
-  if (state.sources.has('spoken'))    fetchers.push(['spoken',    () => searchSpoken({ ...fetchOpts, skip: state.offsets.spoken, memberIds })]);
-  if (state.sources.has('wq'))        fetchers.push(['wq',        () => searchWrittenQuestions({ ...fetchOpts, skip: state.offsets.wq, memberIds })]);
-  if (state.sources.has('ws'))        fetchers.push(['ws',        () => searchWrittenStatements({ ...fetchOpts, skip: state.offsets.ws, memberIds })]);
-  if (state.sources.has('committee')) fetchers.push(['committee', () => searchCommitteeDebates({ ...fetchOpts, skip: state.offsets.committee, memberIds })]);
+  if (state.sources.has('spoken')) fetchers.push(['spoken', () => searchSpoken({ ...fetchOpts, skip: state.offsets.spoken, memberIds })]);
+  if (state.sources.has('wq'))     fetchers.push(['wq',     () => searchWrittenQuestions({ ...fetchOpts, skip: state.offsets.wq, memberIds })]);
+  if (state.sources.has('ws'))     fetchers.push(['ws',     () => searchWrittenStatements({ ...fetchOpts, skip: state.offsets.ws, memberIds })]);
 
   if (!fetchers.length) {
     setStatus('Pick at least one source.');
@@ -386,7 +385,7 @@ async function runSearch(isFresh) {
   fillMissingPartiesForResults(myToken);
 
   const totalAvailable = Object.values(state.totals).reduce((a, b) => a + b, 0);
-  const haveMore = ['spoken', 'wq', 'ws', 'committee']
+  const haveMore = ALL_SOURCES
     .filter((k) => state.sources.has(k))
     .some((k) => state.offsets[k] < state.totals[k]);
   $more.hidden = !haveMore;
@@ -501,9 +500,8 @@ function describeDateRange() {
 
 function describeSearchFilters() {
   const parts = [];
-  const allSources = ['spoken', 'wq', 'ws', 'committee'];
-  if (state.sources.size && state.sources.size !== allSources.length) {
-    const labels = { spoken: 'Spoken', wq: 'Written Q', ws: 'Written Stmt', committee: 'Committee' };
+  if (state.sources.size && state.sources.size !== ALL_SOURCES.length) {
+    const labels = { spoken: 'Spoken', wq: 'Q on notice', ws: 'Statement' };
     parts.push(`Sources: ${[...state.sources].map((s) => labels[s] || s).join(', ')}`);
   }
   if (state.house && state.house !== 'Both') parts.push(`House: ${state.house}`);
