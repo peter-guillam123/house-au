@@ -75,11 +75,24 @@ export async function getIndexDate() {
 
 const _shardCache = new Map();           // url -> Promise<Array>
 const _shardOrder = [];                  // LRU order of cached urls
-// Conservative cap. Each shard parses to ~25-300MB of JS objects depending
-// on how dense the period was; with 6 in cache simultaneously we'd routinely
-// blow Chrome's per-tab budget on wide searches. Three is enough to keep
-// recent navigation cheap without holding the world.
-const SHARD_CACHE_MAX = 3;
+// Each shard parses to ~25-300MB of JS objects depending on how dense the
+// period was. At 1 we hold the most recent shard for back-button cheapness,
+// without 1+GB of idle parsed JSON lurking between searches. Wide searches
+// fan out to many more than 1 shard mid-iteration, but those are released
+// once the iteration moves past them — the cap only affects steady-state.
+const SHARD_CACHE_MAX = 1;
+
+// Release the cache when the tab is hidden — there's no point holding ~1GB
+// of parsed Hansard while the user is reading a different tab. Re-fetching
+// on return is fast over broadband + Pages' CDN caching.
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      _shardCache.clear();
+      _shardOrder.length = 0;
+    }
+  });
+}
 
 function _touchShard(url) {
   const i = _shardOrder.indexOf(url);

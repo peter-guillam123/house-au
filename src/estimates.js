@@ -29,7 +29,15 @@ const $results     = document.getElementById('est-results');
 const $stamp       = document.getElementById('index-stamp');
 
 // ---------- shard cache ----------
+// Bounded LRU + tab-hidden eviction. Each Estimates round shard parses to
+// ~100-300MB in V8 (the bigger rounds like Supplementary 2025-26 have
+// 67MB of raw JSON). With all four loaded simultaneously we'd routinely
+// see 1.5GB+ of idle memory; the cap of 1 keeps idle-state lean without
+// hurting the active search.
 const _shardCache = new Map();
+const _shardOrder = [];
+const SHARD_CACHE_MAX = 1;
+
 function loadShard(spec) {
   if (!_shardCache.has(spec.url)) {
     _shardCache.set(spec.url, fetch(`./${spec.url}`).then(async (r) => {
@@ -37,7 +45,22 @@ function loadShard(spec) {
       return r.json();
     }));
   }
+  const i = _shardOrder.indexOf(spec.url);
+  if (i >= 0) _shardOrder.splice(i, 1);
+  _shardOrder.push(spec.url);
+  while (_shardOrder.length > SHARD_CACHE_MAX) {
+    _shardCache.delete(_shardOrder.shift());
+  }
   return _shardCache.get(spec.url);
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      _shardCache.clear();
+      _shardOrder.length = 0;
+    }
+  });
 }
 
 // ---------- manifest ----------
