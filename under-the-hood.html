@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Two Houses, one shape — how House UK and House AU actually work</title>
-  <meta name="description" content="The same search surface, two radically different parliaments under the hood. An illustrated walkthrough of why the UK version is thin and the Australian version is fat, and what that means for journalism.">
+  <title>Three Houses, one shape — how House UK, House AU and House US actually work</title>
+  <meta name="description" content="The same search surface, three radically different parliaments under the hood. An illustrated walkthrough of why UK is thin, AU is fat, and US sits in between as a hybrid — and what that means for journalism.">
   <meta name="theme-color" content="#f6f3ec">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&family=Source+Serif+4:ital,opsz,wght@1,8..60,300..600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   <style>
     :root {
-      /* House palette — cream paper, near-black ink, two regional accents */
+      /* House palette — cream paper, near-black ink, three regional accents */
       --paper:        #f6f3ec;
       --paper-warm:   #fbf8f1;
       --paper-deep:   #ece7da;
@@ -27,6 +27,8 @@
       --uk-tint:      #f3e3df;
       --au:           #00843d;   /* eucalypt */
       --au-tint:      #e0f0e5;
+      --us:           #1d2f5e;   /* federal navy */
+      --us-tint:      #e6eaf2;
       --gold:         #ffcd00;
 
       --serif: 'Source Serif 4', 'Iowan Old Style', 'Hoefler Text', Georgia, serif;
@@ -88,11 +90,13 @@
     }
     .region-pair .uk-mark { color: var(--uk); }
     .region-pair .au-mark { color: var(--au); }
+    .region-pair .us-mark { color: var(--us); }
 
     /* ----- column layout ----- */
     main { max-width: 760px; margin: 0 auto; padding: 0 var(--gutter); }
     main.wide { max-width: 1100px; }
     section { margin: 4rem 0; }
+    section.wide { max-width: 1100px; margin-left: auto; margin-right: auto; }
 
     .eyebrow {
       font-family: var(--mono);
@@ -157,7 +161,16 @@
       border: 1px solid var(--rule-soft);
     }
 
-    /* ----- headline pair: side-by-side region cards ----- */
+    /* ----- headline trio: side-by-side region cards ----- */
+    .trio {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: 1fr;
+      margin: 1rem 0;
+    }
+    @media (min-width: 760px) {
+      .trio { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    }
     .pair {
       display: grid;
       gap: 1.2rem;
@@ -176,6 +189,7 @@
     }
     .card.uk { border-top: 4px solid var(--uk); }
     .card.au { border-top: 4px solid var(--au); }
+    .card.us { border-top: 4px solid var(--us); }
     .card .badge {
       font-family: var(--mono);
       font-size: 0.66rem;
@@ -188,6 +202,7 @@
     }
     .card.uk .badge { color: var(--uk); }
     .card.au .badge { color: var(--au); }
+    .card.us .badge { color: var(--us); }
     .card h3 { margin-top: 0.55rem; }
     .card p { font-size: 0.96rem; color: var(--ink-soft); margin: 0.3rem 0; }
     .card .num {
@@ -200,8 +215,9 @@
     }
     .card.uk .num em { color: var(--uk); font-style: normal; }
     .card.au .num em { color: var(--au); font-style: normal; }
+    .card.us .num em { color: var(--us); font-style: normal; }
 
-    /* ----- diagram (UK vs AU data flow) ----- */
+    /* ----- diagram (UK / AU / US data flow) ----- */
     .flow-wrap {
       background: var(--paper-warm);
       border: 1px solid var(--ink);
@@ -235,6 +251,7 @@
     }
     .flow-toggle button[aria-pressed="true"][data-region="uk"] { background: var(--uk); }
     .flow-toggle button[aria-pressed="true"][data-region="au"] { background: var(--au); }
+    .flow-toggle button[aria-pressed="true"][data-region="us"] { background: var(--us); }
 
     .flow-svg { width: 100%; height: auto; display: block; }
     .flow-label {
@@ -256,6 +273,8 @@
     .flow-arrow.dim { stroke-opacity: 0.25; }
     .flow-arrow.live { stroke: var(--uk); }
     .flow-arrow.build { stroke: var(--au); stroke-dasharray: 4 3; }
+    .flow-arrow.live-us { stroke: var(--us); }
+    .flow-arrow.build-us { stroke: var(--us); stroke-dasharray: 4 3; }
 
     .legend {
       display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem;
@@ -275,6 +294,11 @@
     }
     .legend .live i { background: var(--uk); height: 2px; }
     .legend .build i { background: var(--au); height: 2px; border-top: 2px dashed var(--au); }
+    .legend .both i {
+      background: linear-gradient(90deg, var(--us) 50%, transparent 50%);
+      background-size: 6px 2px;
+      height: 2px;
+    }
 
     .flow-caption {
       margin-top: 0.85rem;
@@ -321,23 +345,24 @@
       gap: 1rem;
       grid-template-columns: 1fr;
     }
-    @media (min-width: 760px) {
-      .walk-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media (min-width: 960px) {
+      .walk-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     }
     .walk-grid h3 { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 0.4rem; }
     .walk-grid .uk h3 { color: var(--uk); }
     .walk-grid .au h3 { color: var(--au); }
+    .walk-grid .us h3 { color: var(--us); }
 
     /* ----- comparison table ----- */
     .table-wrap { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--ink); }
     table.compare {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.93rem;
+      font-size: 0.92rem;
       background: var(--paper-warm);
     }
     table.compare th, table.compare td {
-      padding: 0.75rem 0.9rem;
+      padding: 0.7rem 0.85rem;
       text-align: left;
       vertical-align: top;
       border-bottom: 1px solid var(--rule-soft);
@@ -353,6 +378,7 @@
     }
     table.compare thead th.uk { color: var(--uk); }
     table.compare thead th.au { color: var(--au); }
+    table.compare thead th.us { color: var(--us); }
     table.compare tbody th {
       font-family: var(--mono);
       font-size: 0.72rem;
@@ -391,7 +417,7 @@
 
     /* ----- subtle motion on toggle ----- */
     @media (prefers-reduced-motion: no-preference) {
-      .flow-arrow.live, .flow-arrow.build {
+      .flow-arrow.live, .flow-arrow.build, .flow-arrow.live-us, .flow-arrow.build-us {
         stroke-dasharray: 4 3;
         animation: dash 5s linear infinite;
       }
@@ -411,45 +437,46 @@
       </svg>
     </span>
     <span class="wordmark-text">House</span>
-    <span class="region-pair"><span class="uk-mark">UK</span> &middot; <span class="au-mark">AU</span></span>
+    <span class="region-pair"><span class="uk-mark">UK</span> &middot; <span class="au-mark">AU</span> &middot; <span class="us-mark">US</span></span>
   </div>
 </header>
 
 <main>
   <section>
     <p class="eyebrow">Under the hood</p>
-    <h1 class="lede">Two Houses, one shape</h1>
+    <h1 class="lede">Three Houses, one shape</h1>
     <p class="hero-sub">
       <strong>House</strong> is a search tool for parliamentary records, built
       for journalists at the Guardian. One search box across spoken contributions,
-      written questions, ministerial statements and committee material; a
-      &ldquo;Deep Dive&rdquo; view that plots how a topic has been discussed over
-      time; a small region tag in the corner because there are now two editions
-      &mdash; one for the UK Parliament, one for Australia&rsquo;s federal
-      parliament.
+      bills, votes, hearings &mdash; or the equivalent in each country; a chart
+      that plots how a topic has been discussed over time; a small region tag
+      in the corner because there are now three editions: UK Parliament,
+      Australia&rsquo;s federal parliament, and the US Congress.
     </p>
     <p class="hero-sub">
-      Both editions look the same on purpose. <strong>The point of this
+      All three editions look the same on purpose. <strong>The point of this
       document is to show what&rsquo;s not the same</strong> &mdash; the plumbing
-      underneath. For a non-technical reader curious about why the same search
-      box can hide two genuinely different systems, and what those differences
-      mean for the journalism the tool is there to support. We&rsquo;ll engage
-      with the technicalities where it matters, but the goal is to make the
-      shape of each system legible without a computer-science background.
+      underneath. Three editions, three different relationships with the data
+      each parliament publishes, three different cost shapes. For a non-technical
+      reader curious about why the same search box can hide three genuinely
+      different systems, and what those differences mean for the journalism the
+      tool is there to support.
     </p>
   </section>
 
   <section>
     <p class="eyebrow">The same shop window</p>
-    <h2>Both versions look the same on purpose</h2>
+    <h2>All three versions look the same on purpose</h2>
     <p class="dek">
       A journalist using one shouldn&rsquo;t have to learn a new interface to use
-      the other. So both editions ship the same five surfaces, the same
-      typography, the same filter shapes, the same keyboard hints. The region
-      tag in the masthead is the only obvious mark of difference.
+      the others. So all three editions ship the same surfaces in the same
+      shape, the same typography, the same filter vocabulary, the same keyboard
+      hints. The region tag in the masthead is the only obvious mark of
+      difference. The number of surfaces differs &mdash; not for design reasons
+      but because each parliament&rsquo;s data lets you do different things.
     </p>
 
-    <div class="pair">
+    <div class="trio">
       <article class="card uk">
         <span class="badge">UK</span>
         <h3>House &middot; UK</h3>
@@ -460,26 +487,35 @@
         <span class="badge">AU</span>
         <h3>House &middot; AU</h3>
         <p class="num"><em>3</em> surfaces</p>
-        <p>Search, Deep Dive, Estimates. The committee-evidence surface UK has doesn&rsquo;t apply &mdash; AU&rsquo;s editorially equivalent material lives in Senate Estimates, which gets its own tab.</p>
+        <p>Search, Deep Dive, Estimates. The committee-transcripts surface UK has doesn&rsquo;t apply &mdash; AU&rsquo;s editorially equivalent material lives in Senate Estimates, which gets its own tab.</p>
+      </article>
+      <article class="card us">
+        <span class="badge">US</span>
+        <h3>House &middot; US</h3>
+        <p class="num"><em>2</em> surfaces</p>
+        <p>Search (with the Deep Dive chart folded in as a filter), and Lobbying. The headline US surface is Lobbying Disclosure Act filings &mdash; quarterly LD-2 reports, searchable on registrant, client, lobbyist, issue and (the gold seam) the free-text issue description.</p>
       </article>
     </div>
   </section>
 
   <section>
     <p class="eyebrow">The fundamental split</p>
-    <h2>One fetches at search time. The other publishes daily.</h2>
+    <h2>One fetches live. One publishes nightly. One does both.</h2>
     <p class="dek">
       The UK Parliament runs a public, CORS-friendly API: hit it with a search
       term, get back ranked results in under a second. The Australian Parliament
-      doesn&rsquo;t. So the AU version inverts the model &mdash; it harvests the
-      whole corpus on a schedule and ships it as static JSON. The user never
-      knows.
+      doesn&rsquo;t, so AU inverts the model and harvests the whole corpus on a
+      schedule, ships it as static JSON. US is a hybrid: GovInfo is live but
+      doesn&rsquo;t send CORS headers (so a tiny proxy is necessary), and
+      Lobbying Disclosure filings are quarterly batches with token auth (so they
+      get the AU treatment). Three editions, three points on a spectrum.
     </p>
 
     <div class="flow-wrap">
       <div class="flow-toggle" role="tablist">
         <button data-region="uk" aria-pressed="true">UK flow</button>
         <button data-region="au" aria-pressed="false">AU flow</button>
+        <button data-region="us" aria-pressed="false">US flow</button>
       </div>
       <svg viewBox="0 0 720 320" class="flow-svg" id="flow-svg" aria-label="Data flow diagram">
         <defs>
@@ -555,14 +591,56 @@
           <path class="flow-arrow build" d="M510 144 L510 160"/>
           <path class="flow-arrow build" d="M510 204 L510 220"/>
         </g>
+
+        <!-- US group: hybrid — live API for Search, static shards for Lobbying -->
+        <g id="us-group" style="display:none">
+          <!-- Live (Search) path -->
+          <rect class="flow-node" x="220" y="60" width="120" height="60" rx="4"/>
+          <text class="flow-label" x="280" y="88" text-anchor="middle">Cloudflare</text>
+          <text class="flow-label" x="280" y="104" text-anchor="middle">Worker</text>
+
+          <rect class="flow-node" x="420" y="30" width="180" height="44" rx="4"/>
+          <text class="flow-label tiny" x="510" y="50" text-anchor="middle">GovInfo</text>
+          <text class="flow-label tiny" x="510" y="64" text-anchor="middle">Congressional Record, bills</text>
+
+          <rect class="flow-node" x="420" y="90" width="180" height="44" rx="4"/>
+          <text class="flow-label tiny" x="510" y="110" text-anchor="middle">Congress.gov &middot; FEC</text>
+          <text class="flow-label tiny" x="510" y="124" text-anchor="middle">members, campaign finance</text>
+
+          <!-- Static (Lobbying) path -->
+          <rect class="flow-node" x="220" y="200" width="120" height="60" rx="4"/>
+          <text class="flow-label" x="280" y="228" text-anchor="middle">GitHub</text>
+          <text class="flow-label" x="280" y="244" text-anchor="middle">Pages</text>
+
+          <rect class="flow-node" x="220" y="155" width="120" height="36" rx="4"/>
+          <text class="flow-label tiny" x="280" y="178" text-anchor="middle">LD-2 shards</text>
+
+          <rect class="flow-node" x="420" y="170" width="180" height="44" rx="4"/>
+          <text class="flow-label tiny" x="510" y="190" text-anchor="middle">GitHub Action</text>
+          <text class="flow-label tiny" x="510" y="204" text-anchor="middle">quarterly harvest</text>
+
+          <rect class="flow-node" x="420" y="230" width="180" height="44" rx="4"/>
+          <text class="flow-label tiny" x="510" y="250" text-anchor="middle">lda.senate.gov</text>
+          <text class="flow-label tiny" x="510" y="264" text-anchor="middle">LDA API (sunset 30 Jun 26)</text>
+
+          <!-- Live arrows (Search) -->
+          <path class="flow-arrow live-us" d="M140 150 C 180 150, 180 90, 220 90"/>
+          <path class="flow-arrow live-us" d="M340 80 C 380 80, 380 50, 420 50"/>
+          <path class="flow-arrow live-us" d="M340 100 C 380 100, 380 110, 420 110"/>
+          <!-- Static arrows (Lobbying) -->
+          <path class="flow-arrow live-us" d="M140 170 C 180 170, 180 230, 220 230"/>
+          <path class="flow-arrow live-us" d="M280 200 L280 191"/>
+          <path class="flow-arrow build-us" d="M340 175 L420 192"/>
+          <path class="flow-arrow build-us" d="M510 214 L510 230"/>
+        </g>
       </svg>
 
       <div class="legend">
         <span class="live"><i></i>Live request, per search</span>
-        <span class="build"><i></i>Built daily, served as static files</span>
+        <span class="build"><i></i>Built ahead of time, served as static files</span>
       </div>
       <p class="flow-caption" id="flow-caption">
-        UK leans on parliament&rsquo;s API. A search round-trips through a tiny Cloudflare
+        UK leans on Parliament&rsquo;s API. A search round-trips through a tiny Cloudflare
         Worker (which only exists to add CORS headers and dodge browser-cache edge
         cases) and out to four parliamentary endpoints in parallel. Round-trip in the
         order of half a second.
@@ -570,13 +648,15 @@
     </div>
   </section>
 
-  <section>
-    <p class="eyebrow">A search through both pipes</p>
-    <h2>What happens when you type &ldquo;AUKUS&rdquo;</h2>
+  <section class="wide">
+    <p class="eyebrow">A search through three pipes</p>
+    <h2>What happens when you search a term</h2>
     <p class="dek">
-      The same query, the same result list shape, two opposite paths. UK&rsquo;s is
-      shorter at runtime; AU&rsquo;s is shorter at every other moment of the day,
-      because nothing&rsquo;s happening on a server that the user is waiting for.
+      The same query, the same result list shape, three different paths through.
+      UK is shortest at runtime. AU is shortest at every other moment of the
+      day, because nothing&rsquo;s happening on a server while the user waits.
+      US splits the difference: fast for daily-news searches, instant for
+      Lobbying (it&rsquo;s already on disk).
     </p>
 
     <div class="walk-grid">
@@ -651,17 +731,54 @@
           </li>
         </ol>
       </div>
+
+      <div class="us">
+        <h3>US &middot; Hybrid</h3>
+        <ol class="walk">
+          <li class="walk-step">
+            <div>
+              <h4>Search hits the Worker (live)</h4>
+              <p>POST to the Cloudflare Worker, which adds the api.data.gov key and forwards to GovInfo&rsquo;s search endpoint. GovInfo lacks CORS, so the Worker is mandatory, not optional.</p>
+            </div>
+          </li>
+          <li class="walk-step">
+            <div>
+              <h4>Chart fans out monthly counts</h4>
+              <p>In parallel, the chart fires 12&ndash;60 count-only queries (one per month) to draw the bar chart on top of the result list. Worker edge-cache makes repeats instant.</p>
+            </div>
+          </li>
+          <li class="walk-step">
+            <div>
+              <h4>Snippets fetch in the background</h4>
+              <p>GovInfo Search returns titles only; for each visible result the browser fetches the granule HTML (still through the Worker) and extracts a snippet around the match. Bounded concurrency 4.</p>
+            </div>
+          </li>
+          <li class="walk-step">
+            <div>
+              <h4>Lobbying reads static shards (built)</h4>
+              <p>Different surface, AU-shaped pipe: the browser fetches the relevant quarterly LD-2 shard from GitHub Pages, decompresses gzip, runs the search in memory. ~5MB per quarter.</p>
+            </div>
+          </li>
+          <li class="walk-step">
+            <div>
+              <h4>Quarterly action keeps shards fresh</h4>
+              <p>A GitHub Action harvests new LD-2 filings from lda.senate.gov each time a quarter&rsquo;s filings drop (~20 days after quarter end), commits the shard back to the repo.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
     </div>
 
     <p class="aside">
-      The cost shifts in time, not size. UK pays per-search; AU pays once a day at
-      18:00 UTC and then nothing until the following night.
+      The cost shifts in time, not size. UK pays per-search. AU pays once a day
+      at 18:00 UTC, then nothing. US pays per-search for the live half and once
+      a quarter for the static half.
     </p>
   </section>
 
-  <section>
+  <section class="wide">
     <p class="eyebrow">What&rsquo;s actually different</p>
-    <h2>Same UI, very different mass underneath</h2>
+    <h2>Same UI, three different masses underneath</h2>
 
     <div class="table-wrap">
       <table class="compare">
@@ -670,6 +787,7 @@
             <th></th>
             <th class="uk">UK</th>
             <th class="au">AU</th>
+            <th class="us">US</th>
           </tr>
         </thead>
         <tbody>
@@ -677,41 +795,49 @@
             <th>Source data</th>
             <td>Live, public APIs from Parliament. Five of them, with full-text search built in.</td>
             <td>No public API. The website&rsquo;s own JSON endpoint, used internally by aph.gov.au, fetched politely by a nightly job.</td>
+            <td>Hybrid. Live API for Congressional Record / bills / Federal Register / FEC (CORS-blocked, so via Worker). Quarterly LDA filings via harvester.</td>
           </tr>
           <tr>
             <th>Where data lives</th>
             <td>Parliament&rsquo;s servers. We never copy it.</td>
-            <td>In the repo. ~33 shard files, ~2GB on disk, served from GitHub Pages. Tiered: per-month for the live two years, per-quarter gzipped for the older archive.</td>
+            <td>In the repo. ~33 shards, ~2GB on disk, served from GitHub Pages.</td>
+            <td>Split. Daily-news data lives at GovInfo; we never copy it. Lobbying data lives in the repo as 5 quarterly shards (~25MB), served from GitHub Pages.</td>
           </tr>
           <tr>
             <th>Run-time cost</th>
-            <td>One Cloudflare Worker, free-tier (100k req/day). 4 upstream API calls per search.</td>
-            <td>Zero compute. Static files served from CDN. Browser does all the search work.</td>
+            <td>One Cloudflare Worker, free-tier. 4 upstream API calls per search.</td>
+            <td>Zero compute. Static files served from CDN.</td>
+            <td>One Cloudflare Worker for Search; zero compute for Lobbying. ~14 Worker calls per Search (1 main + 12 chart fanout + 1 oldest).</td>
           </tr>
           <tr>
             <th>Build-time cost</th>
-            <td>None ongoing. The transcripts archive runs a daily 90-day-window job (~10 minutes).</td>
-            <td>Nightly GitHub Action runs the whole pipeline: discover sitting days, fetch new fragments, parse, rebuild shards, refresh members, repeat for Senate Estimates. ~5 min on a normal night.</td>
+            <td>None ongoing. Transcripts archive runs a daily 90-day job (~10 min).</td>
+            <td>Nightly GitHub Action: discover sitting days, fetch fragments, parse, rebuild shards, refresh members, repeat for Estimates. ~5 min.</td>
+            <td>Quarterly GitHub Action harvests LD-2 filings (~80 min per quarter). Triggered when a new quarter&rsquo;s data drops.</td>
           </tr>
           <tr>
             <th>Freshness</th>
             <td>Roughly real-time &mdash; whatever Parliament published, you can search.</td>
-            <td>~24 hours behind, because Hansard publishes ~24h after a sitting and we harvest after that.</td>
+            <td>~24 hours behind Hansard publication.</td>
+            <td>Search: real-time (whatever GovInfo published). Lobbying: refreshes quarterly with the LD-2 cycle.</td>
           </tr>
           <tr>
             <th>Member metadata</th>
             <td>Members API returns party, constituency, role per query.</td>
-            <td>No equivalent endpoint. Each MP&rsquo;s profile page is scraped once, cached as <code>members.json</code>, joined to contributions by their stable parliamentarian ID.</td>
+            <td>Each MP&rsquo;s profile scraped once, cached as <code>members.json</code>, joined by stable parliamentarian ID.</td>
+            <td>Not exposed by GovInfo Search; speaker leaderboards were dropped from Deep Dive because the lookup would need a 10k-fetch granule harvest.</td>
           </tr>
           <tr>
-            <th>Notable AU-only surface</th>
-            <td>&mdash;</td>
-            <td>Senate Estimates: twice-yearly hearings where senators question departmental officials. The single most journalistically dense AU accountability surface; UK has no equivalent. Gets its own tab with round / committee / portfolio filters.</td>
+            <th>Headline regional surface</th>
+            <td>Transcripts: full-text search of select-committee oral evidence.</td>
+            <td>Senate Estimates: twice-yearly hearings where senators question departmental officials.</td>
+            <td>Lobbying: searchable LDA filings with a free-text issue field that&rsquo;s the journalistic gold seam. UK and AU lobbying registers are pitiful by comparison; this is the US-distinctive surface.</td>
           </tr>
           <tr>
-            <th>Notable UK-only surface</th>
-            <td>Transcripts: full-text search of select-committee oral evidence. UK&rsquo;s Committees API exposes the words; AU&rsquo;s site doesn&rsquo;t and the underlying ParlInfo XML sits behind an Azure WAF that blocks bot traffic. Skipped for AU.</td>
-            <td>&mdash;</td>
+            <th>Headline risk</th>
+            <td>Parliament&rsquo;s API changes shape. Mitigation: the schemas are stable.</td>
+            <td>aph.gov.au&rsquo;s internal endpoint isn&rsquo;t a public API; it could disappear. Mitigation: shards are committed, so harvesting can pause without breaking the tool.</td>
+            <td><code>lda.senate.gov</code> sunsets 30 June 2026; successor at <code>lda.gov</code> currently blocked by Akamai. Mitigation: shards stay committed; harvester needs one-line URL swap by July.</td>
           </tr>
         </tbody>
       </table>
@@ -726,27 +852,38 @@
       can offer.
     </p>
     <p>
-      <strong>UK</strong> can afford to expose more surfaces because the
-      cost is per-API-call: adding a new search type just means a new endpoint
-      to call. Want to filter by select committee? The Committees API can do
-      that. Want to count how often a Lord has spoken on Brexit? The Members
-      API knows who they are; Hansard knows who said what. The plumbing scales
-      to whatever Parliament publishes.
+      <strong>UK</strong> can afford to expose more surfaces because the cost is
+      per-API-call: adding a new search type just means a new endpoint to call.
+      Want to filter by select committee? The Committees API can do that. Want
+      to count how often a Lord has spoken on Brexit? The Members API knows who
+      they are; Hansard knows who said what. The plumbing scales to whatever
+      Parliament publishes.
     </p>
     <p>
       <strong>AU</strong> has to be more selective. Every surface is a harvester
       to maintain, a shard format to keep stable, a chunk of GitHub Pages
-      bandwidth on the wire. So we&rsquo;ve picked three things to do well rather
-      than five things to do approximately: Search across Hansard, Deep Dive
-      for term-over-time, and Estimates as the headline accountability surface.
-      The committee-transcripts feature UK has would&rsquo;ve required a third
-      pipeline of similar size to the Hansard one, fighting Parliament&rsquo;s
-      site at every step. Skipped, on purpose.
+      bandwidth on the wire. So three things done well rather than five things
+      done approximately: Search across Hansard, Deep Dive for term-over-time,
+      and Estimates as the headline accountability surface. The
+      committee-transcripts feature UK has would&rsquo;ve required a third
+      pipeline of similar size to the Hansard one. Skipped, on purpose.
     </p>
     <p>
-      Both versions are deliberate, in other words. UK&rsquo;s thinness is
-      because it can be; AU&rsquo;s fatness is because it has to be. Same
-      editorial product through opposite plumbing.
+      <strong>US</strong> reads the room differently again. GovInfo gives us a
+      huge live corpus (Congressional Record back to 1995, bills, hearings,
+      Federal Register, FEC) but no speaker-level metadata, so a UK-style
+      Most-Contributions leaderboard isn&rsquo;t feasible without paying a
+      10k-fetch harvest cost. The Deep Dive chart folds into Search instead of
+      being its own page. Meanwhile the Lobbying Disclosure Act produces
+      something neither UK nor AU has &mdash; a quarterly, structured,
+      dollar-attached record of who lobbied whom about what &mdash; so that
+      becomes the US-distinctive surface, AU-shaped under the hood.
+    </p>
+    <p>
+      All three versions are deliberate. UK&rsquo;s thinness is because it can
+      be; AU&rsquo;s fatness is because it has to be; US is hybrid because the
+      sources are too. Same editorial product through three different
+      plumbings.
     </p>
   </section>
 
@@ -754,18 +891,24 @@
     <p class="eyebrow">Useful numbers</p>
     <h2>What&rsquo;s actually in there right now</h2>
 
-    <div class="pair">
+    <div class="trio">
       <article class="card uk">
         <span class="badge">UK</span>
         <h3>What the APIs cover</h3>
         <p class="num"><em>~80</em> years of Hansard</p>
-        <p>Modern records back to the 1980s, with full-text search and structured metadata. Plus 6 years of select-committee oral evidence in the Transcripts archive.</p>
+        <p>Modern records back to the 1980s, with full-text search and structured metadata. Plus 6 years of select-committee oral evidence.</p>
       </article>
       <article class="card au">
         <span class="badge">AU</span>
         <h3>What we&rsquo;ve harvested</h3>
         <p class="num"><em>189,499</em> contributions</p>
-        <p>Chamber Hansard from Feb 2020 to today, plus 555 Senate Estimates sections (a year&rsquo;s worth, twice as much per session as Reps).</p>
+        <p>Chamber Hansard from Feb 2020 to today, plus 555 Senate Estimates sections.</p>
+      </article>
+      <article class="card us">
+        <span class="badge">US</span>
+        <h3>What&rsquo;s searchable</h3>
+        <p class="num"><em>~104k</em> lobbying filings</p>
+        <p>5 quarters of LDA filings on disk (2025 Q1 to 2026 Q1). Live access to 30+ years of Congressional Record, current Congress&rsquo;s bills, all hearings and Federal Register notices through GovInfo.</p>
       </article>
     </div>
   </section>
@@ -774,20 +917,20 @@
     <p class="eyebrow">A note for anyone porting this</p>
     <h2>If you want to do this for another parliament</h2>
     <p>
-      The UK and AU patterns bookend the cost-shape spectrum. Most parliaments
-      will land somewhere in between &mdash; some live API, some scraping, some
-      static publication. The thing that travels well is the editorial shape:
-      five (or four, or three) search surfaces, restrained editorial typography,
-      one accent colour from the country&rsquo;s civic palette, mono-caps
-      eyebrows, hairline rules. The data plumbing follows from what&rsquo;s
-      actually available.
+      UK, AU and US bookend the cost-shape spectrum and fill in its middle. Most
+      parliaments will land somewhere along it. The thing that travels well is
+      the editorial shape: a handful of search surfaces, restrained editorial
+      typography, one accent colour from the country&rsquo;s civic palette,
+      mono-caps eyebrows, hairline rules. The data plumbing follows from
+      what&rsquo;s actually available.
     </p>
     <p>
-      The honest test for a third edition: is there a Senate Estimates
-      analogue? An accountability surface that runs on a regular calendar,
-      produces dense journalistic material, and isn&rsquo;t already covered by
-      the chamber-debate search. If yes, build it as its own surface. If
-      no, three surfaces is enough.
+      The honest test for a new edition: is there an accountability surface that
+      runs on a regular calendar, produces dense journalistic material, and
+      isn&rsquo;t already covered by the chamber-debate search? UK has Committees
+      and Transcripts. AU has Senate Estimates. US has Lobbying Disclosure. If
+      your target parliament has one, build it as its own surface. If not, two
+      or three surfaces is enough.
     </p>
   </section>
 </main>
@@ -797,15 +940,17 @@
 </footer>
 
 <script>
-  // Toggle the flow diagram between UK and AU views.
+  // Toggle the flow diagram between UK, AU and US views.
   const $btns = document.querySelectorAll('.flow-toggle button');
   const $uk = document.getElementById('uk-group');
   const $au = document.getElementById('au-group');
+  const $us = document.getElementById('us-group');
   const $caption = document.getElementById('flow-caption');
 
   const captions = {
-    uk: 'UK leans on parliament’s API. A search round-trips through a tiny Cloudflare Worker (which only exists to add CORS headers and dodge browser-cache edge cases) and out to four parliamentary endpoints in parallel. Round-trip in the order of half a second.',
-    au: 'AU has no equivalent API. Every night a GitHub Action walks aph.gov.au, fetches new sitting days via parliament’s own internal JSON endpoint, parses them, refreshes the members directory, rebuilds the published shards. The browser then has the whole corpus locally; no live request goes to parliament during a search.'
+    uk: 'UK leans on Parliament’s API. A search round-trips through a tiny Cloudflare Worker (which only exists to add CORS headers and dodge browser-cache edge cases) and out to four parliamentary endpoints in parallel. Round-trip in the order of half a second.',
+    au: 'AU has no equivalent API. Every night a GitHub Action walks aph.gov.au, fetches new sitting days via parliament’s own internal JSON endpoint, parses them, refreshes the members directory, rebuilds the published shards. The browser then has the whole corpus locally; no live request goes to parliament during a search.',
+    us: 'US is hybrid. Search hits GovInfo live through a Cloudflare Worker that injects the api.data.gov key and forwards (mandatory because GovInfo sends no CORS headers). Lobbying reads from quarterly static shards committed to the repo and served from GitHub Pages — harvested from lda.senate.gov each time a new quarter’s filings drop. Two different cost shapes side by side under one wordmark.'
   };
 
   for (const btn of $btns) {
@@ -814,6 +959,7 @@
       for (const b of $btns) b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
       $uk.style.display = target === 'uk' ? '' : 'none';
       $au.style.display = target === 'au' ? '' : 'none';
+      $us.style.display = target === 'us' ? '' : 'none';
       $caption.textContent = captions[target];
     });
   }
