@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-06-03",
+  "as_of": "2026-06-04",
   "members": {
     "008CH": {
       "name": "Ms Zoe Daniel MP",
@@ -1194,6 +1194,11 @@
     "61378": {
       "name": "Hon Trevor Evans",
       "party": "Liberal National Party of Queensland",
+      "chamber": "House of Representatives"
+    },
+    "62329": {
+      "name": "Mr David Farley",
+      "party": "One Nation",
       "chamber": "House of Representatives"
     },
     "72184": {
