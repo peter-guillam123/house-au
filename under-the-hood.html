@@ -651,8 +651,8 @@
           <text class="flow-label tiny" x="510" y="204" text-anchor="middle">quarterly harvest</text>
 
           <rect class="flow-node" x="420" y="230" width="180" height="44" rx="4"/>
-          <text class="flow-label tiny" x="510" y="250" text-anchor="middle">lda.senate.gov</text>
-          <text class="flow-label tiny" x="510" y="264" text-anchor="middle">LDA API (sunset 30 Jun 26)</text>
+          <text class="flow-label tiny" x="510" y="250" text-anchor="middle">lda.gov</text>
+          <text class="flow-label tiny" x="510" y="264" text-anchor="middle">Akamai — via Playwright</text>
 
           <!-- Live arrows (Search) -->
           <path class="flow-arrow live-us" d="M140 150 C 180 150, 180 90, 220 90"/>
@@ -793,7 +793,7 @@
           <li class="walk-step">
             <div>
               <h4>Quarterly action keeps shards fresh</h4>
-              <p>A GitHub Action harvests new LD-2 filings from lda.senate.gov each time a quarter&rsquo;s filings drop (~20 days after quarter end), commits the shard back to the repo.</p>
+              <p>Each time a quarter&rsquo;s filings drop (~20 days after quarter end), a Playwright-driven harvester scrapes new LD-2 filings from lda.gov, commits the shard back to the repo. Playwright is needed because lda.gov is behind Akamai and refuses plain-HTTP clients &mdash; a real Chromium session gets through where curl and requests both 403.</p>
             </div>
           </li>
         </ol>
@@ -844,7 +844,7 @@
             <th>Build-time cost</th>
             <td>None ongoing. Transcripts archive runs a daily 90-day job (~10 min).</td>
             <td>Nightly GitHub Action: discover sitting days, fetch fragments, parse, rebuild shards, refresh members, repeat for Estimates. ~5 min.</td>
-            <td>Quarterly GitHub Action harvests LD-2 filings (~80 min per quarter). Triggered when a new quarter&rsquo;s data drops.</td>
+            <td>Quarterly Playwright-driven harvest of LD-2 filings from lda.gov (~15&ndash;60 min per quarter, depending on how aggressively the API rate-limits). Runs locally on a Mac; no CI service in the loop.</td>
           </tr>
           <tr>
             <th>Freshness</th>
@@ -868,7 +868,7 @@
             <th>Headline risk</th>
             <td>Parliament&rsquo;s API changes shape. Mitigation: the schemas are stable.</td>
             <td>aph.gov.au&rsquo;s internal endpoint isn&rsquo;t a public API; it could disappear. Mitigation: shards are committed, so harvesting can pause without breaking the tool.</td>
-            <td><code>lda.senate.gov</code> sunsets 30 June 2026; successor at <code>lda.gov</code> currently blocked by Akamai. Mitigation: shards stay committed; harvester needs one-line URL swap by July.</td>
+            <td><code>lda.senate.gov</code> sunset 31 July 2026 (extended once). Successor at <code>lda.gov</code> refuses non-browser callers via Akamai; harvester now drives a real Chromium via Playwright to fetch through the site&rsquo;s own network stack. Shards remain committed regardless.</td>
           </tr>
         </tbody>
       </table>
@@ -981,7 +981,7 @@
   const captions = {
     uk: 'UK leans on Parliament’s API. A search round-trips through a tiny Cloudflare Worker (which only exists to add CORS headers and dodge browser-cache edge cases) and out to four parliamentary endpoints in parallel. Round-trip in the order of half a second.',
     au: 'AU has no equivalent API. Every night a GitHub Action walks aph.gov.au, fetches new sitting days via parliament’s own internal JSON endpoint, parses them, refreshes the members directory, rebuilds the published shards. The browser then has the whole corpus locally; no live request goes to parliament during a search.',
-    us: 'US is hybrid. Search hits GovInfo live through a Cloudflare Worker that injects the api.data.gov key and forwards (mandatory because GovInfo sends no CORS headers). Lobbying reads from quarterly static shards committed to the repo and served from GitHub Pages — harvested from lda.senate.gov each time a new quarter’s filings drop. Two different cost shapes side by side under one wordmark.'
+    us: 'US is hybrid. Search hits GovInfo live through a Cloudflare Worker that injects the api.data.gov key and forwards (mandatory because GovInfo sends no CORS headers). Lobbying reads from quarterly static shards committed to the repo and served from GitHub Pages — harvested from lda.gov each time a new quarter’s filings drop, via a Playwright-driven Chromium because lda.gov is behind Akamai and refuses plain-HTTP clients. Two different cost shapes side by side under one wordmark.'
   };
 
   for (const btn of $btns) {
