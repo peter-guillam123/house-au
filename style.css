@@ -170,6 +170,39 @@ a:hover { color: var(--accent); text-decoration-color: var(--accent); }
   line-height: 1;
 }
 
+/* Three-region switcher — sits alongside the wordmark. Current region
+   is a plain span (bolded, coloured); the other two are anchors to
+   the sister sites. Region colours hardcoded here so all three sites
+   share the same block verbatim. */
+.region-pair {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-left: 0.7rem;
+  margin-left: 0.55rem;
+  border-left: 1px solid var(--rule);
+  color: var(--ink-muted);
+  line-height: 1;
+  align-self: center;
+}
+.region-pair a {
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: opacity 120ms;
+}
+.region-pair a:hover { opacity: 0.7; }
+.region-pair a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.region-pair .uk-mark { color: #6b1f24; }
+.region-pair .au-mark { color: #00843d; }
+.region-pair .us-mark { color: #1d2f5e; }
+.region-pair .current { font-weight: 600; }
+
 .topnav {
   display: flex;
   flex-wrap: nowrap;
