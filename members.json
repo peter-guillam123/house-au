@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-30",
+  "as_of": "2026-08-31",
   "members": {
     "008CH": {
       "name": "Ms Zoe Daniel MP",
@@ -260,11 +260,6 @@
       "name": "Mr Trent Zimmerman",
       "party": "Liberal Party of Australia",
       "chamber": "House of Representatives"
-    },
-    "204953": {
-      "name": "Former Senator Alex Gallacher",
-      "party": "Australian Labor Party",
-      "chamber": "Senate"
     },
     "207825": {
       "name": "Senator the Hon Bridget McKenzie",
