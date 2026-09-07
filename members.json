@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-06",
+  "as_of": "2026-09-07",
   "members": {
     "008CH": {
       "name": "Ms Zoe Daniel MP",
@@ -489,6 +489,11 @@
     "257613": {
       "name": "Senator Varun Ghosh",
       "party": "Australian Labor Party",
+      "chamber": "Senate"
+    },
+    "25813": {
+      "name": "Senator Vanessa Bleyer",
+      "party": "Australian Greens",
       "chamber": "Senate"
     },
     "259819": {
@@ -1154,6 +1159,11 @@
     "319142": {
       "name": "Senator Sean Bell",
       "party": "One Nation",
+      "chamber": "Senate"
+    },
+    "324140": {
+      "name": "Senator Chris Gatenby",
+      "party": "Liberal Party of Australia",
       "chamber": "Senate"
     },
     "37998": {
