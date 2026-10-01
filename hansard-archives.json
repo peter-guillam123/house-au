@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-09-30",
+  "as_of": "2026-10-01",
   "rolling": {
     "url": "hansard-rolling.json",
-    "from": "2026-08-01",
-    "to": "2026-09-30",
+    "from": "2026-08-02",
+    "to": "2026-10-01",
     "count": 8681
   },
   "shards": [
@@ -127,22 +127,11 @@
       "compressed": true
     },
     {
-      "url": "hansard-2024-07.json",
+      "url": "hansard-2024-Q3.json.gz",
       "from": "2024-07-01",
-      "to": "2024-07-31",
-      "count": 2155
-    },
-    {
-      "url": "hansard-2024-08.json",
-      "from": "2024-08-01",
-      "to": "2024-08-31",
-      "count": 4196
-    },
-    {
-      "url": "hansard-2024-09.json",
-      "from": "2024-09-01",
       "to": "2024-09-30",
-      "count": 3135
+      "count": 9486,
+      "compressed": true
     },
     {
       "url": "hansard-2024-10.json",
@@ -233,6 +222,24 @@
       "from": "2026-06-01",
       "to": "2026-06-30",
       "count": 4074
+    },
+    {
+      "url": "hansard-2026-07.json",
+      "from": "2026-07-01",
+      "to": "2026-07-31",
+      "count": 1214
+    },
+    {
+      "url": "hansard-2026-08.json",
+      "from": "2026-08-01",
+      "to": "2026-08-31",
+      "count": 4151
+    },
+    {
+      "url": "hansard-2026-09.json",
+      "from": "2026-09-01",
+      "to": "2026-09-30",
+      "count": 4530
     }
   ]
 }
