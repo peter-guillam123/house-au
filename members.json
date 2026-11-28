@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-27",
+  "as_of": "2026-11-28",
   "members": {
     "008CH": {
       "name": "Ms Zoe Daniel MP",
@@ -146,19 +146,9 @@
       "party": "Australian Labor Party",
       "chamber": "House of Representatives"
     },
-    "140651": {
-      "name": "Senator Deborah O'Neill",
-      "party": "Australian Labor Party",
-      "chamber": "Senate"
-    },
     "144138": {
       "name": "Senator James Paterson",
       "party": "Liberal Party of Australia",
-      "chamber": "Senate"
-    },
-    "144292": {
-      "name": "Former Senator Rex Patrick",
-      "party": "Independent",
       "chamber": "Senate"
     },
     "144732": {
@@ -166,20 +156,10 @@
       "party": "Australian Labor Party",
       "chamber": "House of Representatives"
     },
-    "147140": {
-      "name": "Mrs Fiona Phillips MP",
-      "party": "Australian Labor Party",
-      "chamber": "House of Representatives"
-    },
     "148150": {
       "name": "Hon Keith Pitt",
       "party": "Liberal National Party of Queensland",
       "chamber": "House of Representatives"
-    },
-    "155410": {
-      "name": "Former Senator Janet Rice",
-      "party": "Australian Greens",
-      "chamber": "Senate"
     },
     "157125": {
       "name": "Ms Tracey Roberts MP",
@@ -226,11 +206,6 @@
       "party": "Australian Labor Party",
       "chamber": "House of Representatives"
     },
-    "188315": {
-      "name": "Mr Bert van Manen MP",
-      "party": "Liberal National Party of Queensland",
-      "chamber": "House of Representatives"
-    },
     "192970": {
       "name": "Senator Larissa Waters",
       "party": "Australian Greens",
@@ -266,11 +241,6 @@
       "party": "The Nationals",
       "chamber": "Senate"
     },
-    "208884": {
-      "name": "Hon Christian Porter",
-      "party": "Liberal Party of Australia",
-      "chamber": "House of Representatives"
-    },
     "210911": {
       "name": "Hon Dan Tehan MP",
       "party": "Liberal Party of Australia",
@@ -280,11 +250,6 @@
       "name": "Senator the Hon James McGrath",
       "party": "Liberal National Party of Queensland",
       "chamber": "Senate"
-    },
-    "218019": {
-      "name": "Hon Kevin Hogan MP",
-      "party": "The Nationals",
-      "chamber": "House of Representatives"
     },
     "219646": {
       "name": "Hon Michael McCormack MP",
